@@ -3,11 +3,12 @@
 
 
 
-Background:
+**Background**:
 	Throughout snowy mountainous areas in the United States avalanches pose a big concern to winter backcountry enthusiasts. The purpose of the project is to serve as a visual educational resource for avalanche characteristics based off inputted user weather/terrain criteria. Avalanches are classified into nine different types, varying based off local terrain and recent weather conditions. Users can input their own input data (or potentially have recent local weather data inputted for them) allowing for an educational visual representation of the avalanche type. After submission, there will be a dynamic visual representation of the avalanche type as well as a relevant description for the avalanche type.
 
-Functionality and MVPs
-	
+**Functionality and MVPs
+**	
+
 While using this visual representation, users will be able to: 
 
 •	Input necessary data for identifying avalanche type
@@ -27,7 +28,7 @@ In addition, the project will include:
 
 •	Instructions for user, controls
 
-Wireframe
+**Wireframe**
 
 
 
@@ -43,18 +44,20 @@ Wireframe
 
 ![image](https://user-images.githubusercontent.com/80602202/129301683-be04e5d3-0241-46d9-860d-2f42256ee4bb.png)
 
-Technologies, Libraries, APIs
+**Technologies, Libraries, APIs
+**
 This project will be implemented with the following technologies
-•	The Canvas API to render game board
+
 
 •	Webpack and Babel to bundle and transpile the source Javascript code
 
 •	npm to manage project dependencies
 
-•	P5 to display the dynamic visualization
+•	P5.js to create the dynamic canvas visualization
 
 
-Implementation Timeline
+**Implementation Timeline
+**
 
 Friday Afternoon and Weekend: Research related project info. Setup project and webpack configuration. The overall layout (as seen in the wireframe) should be able to viewed by end of weekend. Create all the necessary classes.
 
@@ -65,7 +68,8 @@ Tuesday: Basic visualization of each avalanche type should be visible. Work on e
 Wednesday: Improve the graphics and overall appearance. Improve dynamics of graphics and any bugs. If time implement bonus objectives. End with Finishing touches. Deploy GitHub page
 
 
-Bonus Features
+**Bonus Features
+**
 •	Implement the Weatherbit.io historical weather API to input historical snow conditions based off user location
 
 

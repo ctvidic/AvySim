@@ -6,7 +6,6 @@
 Background:
 	Throughout snowy mountainous areas in the United States avalanches pose a big concern to winter backcountry enthusiasts. The purpose of the project is to serve as a visual educational resource for avalanche characteristics based off inputed user criteria. Avalanches are classified into nine different types varying based off local terrain and recent weather conditions. Users can input their own data, or have recent local weather data inputted for them, allowing for an educational visual representation of the avalanche type. After submission, there will be a dynamic visual representation of the avalanche type.
 
-
 Functionality and MVPs
 	
 While using this visual representation, users will be able to: 
@@ -21,7 +20,8 @@ In addition, the project will include:
 
 Wireframe
 
-![image](https://user-images.githubusercontent.com/80602202/129301077-69745960-550f-4c46-9d77-0f327d93151d.png)
+![image](https://user-images.githubusercontent.com/80602202/129301186-92563919-067a-4a26-96de-e6ec1a70621a.png)
+
 
 
 Technologies, Libraries, APIs

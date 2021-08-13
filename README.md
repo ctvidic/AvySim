@@ -40,11 +40,15 @@ User Input:
 	• Weak Layer: (True, False)
 	
 
+Avalanche Type Based off Input
+
+	• Wind Slab, Cornice Fall: Windspeed > 15 mph
 	
-•	Wind Slab, Cornice Fall: Windspeed > 15 mph
-•	Persisent Slab: Weak Layer = True
-•	Loose Wet/Wet Slab: Temperature > 40F, Sunny = True OR Precipitation = True
-•	Storm Slab: Precipitation = True
+	• Persisent Slab: Weak Layer = True
+	
+	• Loose Wet/Wet Slab: Temperature > 40F, Sunny = True OR Precipitation = True
+	
+	• Storm Slab: Precipitation = True
 
 If slope angle is less than 30 degrees or greater than 45, there will be no avalanche (out of angle)
 If snowpack is zero there will be no avalanche (no snow)

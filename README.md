@@ -61,20 +61,8 @@ In addition, the project will include:
 	• Instructions for user, controls
 
 **Wireframe**
+![image](https://user-images.githubusercontent.com/80602202/129402391-8d00ad65-2c35-40e2-ad1a-4f029f13fa15.png)
 
-
-
-
-
-
-
-	
-	
-
-
-
-
-![image](https://user-images.githubusercontent.com/80602202/129301683-be04e5d3-0241-46d9-860d-2f42256ee4bb.png)
 
 **Technologies, Libraries, APIs**
 This project will be implemented with the following technologies

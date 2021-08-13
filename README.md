@@ -29,9 +29,19 @@ In addition, the project will include:
 
 Wireframe
 
-![image](https://user-images.githubusercontent.com/80602202/129301186-92563919-067a-4a26-96de-e6ec1a70621a.png)
 
 
+
+
+
+
+	
+	
+
+
+
+
+![image](https://user-images.githubusercontent.com/80602202/129301683-be04e5d3-0241-46d9-860d-2f42256ee4bb.png)
 
 Technologies, Libraries, APIs
 This project will be implemented with the following technologies

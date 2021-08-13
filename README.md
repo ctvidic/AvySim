@@ -21,6 +21,7 @@ In addition, the project will include:
 
 Wireframe
 
+![image](https://user-images.githubusercontent.com/80602202/129301077-69745960-550f-4c46-9d77-0f327d93151d.png)
 
 
 Technologies, Libraries, APIs
@@ -44,4 +45,16 @@ Wednesday: Improve the graphics and overall appearance. Improve dynamics of grap
 Bonus Features
 •	Implement the Weatherbit.io historical weather API to input historical snow conditions based off user location
 
-![image](https://user-images.githubusercontent.com/80602202/129300796-62469ac5-c5b9-49a6-9f81-d8d49cdef87a.png)
+
+
+
+
+
+
+	
+	
+
+
+
+
+

@@ -9,13 +9,22 @@ Background:
 Functionality and MVPs
 	
 While using this visual representation, users will be able to: 
+
 •	Input necessary data for identifying avalanche type
-o	Ex: Slope Angle, Snowpack, Temperature, Wind
+
+o		Ex inputs: Slope Angle, Snowpack, Temperature, Wind, etc
+
+o		Ex avalanche types: Glide, Cornice, Persistent Slab, etc
+
+
 •	View a dynamic output of one of the nine avalanche types that match their inputted conditions
+
 •	Associated info for the avalanche type, and an explanation for why it was chosen based off user conditions
 
 In addition, the project will include:
+
 •	A production README
+
 •	Instructions for user, controls
 
 Wireframe
@@ -27,8 +36,11 @@ Wireframe
 Technologies, Libraries, APIs
 This project will be implemented with the following technologies
 •	The Canvas API to render game board
+
 •	Webpack and Babel to bundle and transpile the source Javascript code
+
 •	npm to manage project dependencies
+
 •	P5 to display the dynamic visualization
 
 

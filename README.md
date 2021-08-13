@@ -6,7 +6,7 @@
 **Background**:
 	Throughout snowy mountainous areas in the United States avalanches pose a big concern to winter backcountry enthusiasts. The purpose of the project is to serve as a visual educational resource for avalanche characteristics based off inputted user weather/terrain criteria. Avalanches are classified into nine different types, varying based off local terrain and recent weather conditions. Users can input their own input data (or potentially have recent local weather data inputted for them) allowing for an educational visual representation of the avalanche type. After submission, there will be a dynamic visual representation of the avalanche type as well as a relevant description for the avalanche type.
 
-**Functionality and MVPs**	
+****Functionality and MVPs****
 
 While using this visual representation, users will be able to: 
 
@@ -20,6 +20,7 @@ o		Ex avalanche types: Glide, Cornice, Persistent Slab, etc
 •	View a dynamic output of one of the nine avalanche types that match their inputted conditions
 
 •	Associated info for the avalanche type, and an explanation for why it was chosen based off user conditions
+
 
 In addition, the project will include:
 

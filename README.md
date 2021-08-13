@@ -63,7 +63,16 @@ In addition, the project will include:
 **Wireframe**
 ![image](https://user-images.githubusercontent.com/80602202/129402391-8d00ad65-2c35-40e2-ad1a-4f029f13fa15.png)
 
+	• Title: Displays title of project 
+	
+	• Visualization Display: Displays avalanche on sloped mountainside, will dynamically move avalanche based off gravity, wind.
+	
+	• User input: Area for user to input
+	
+	• Avalanche type+Explantion for Avalanche type: Self explanatory, will show the avalanche type and a relevant description.
+	
 
+	
 **Technologies, Libraries, APIs**
 This project will be implemented with the following technologies
 

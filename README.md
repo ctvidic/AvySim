@@ -45,6 +45,7 @@ This project will be implemented with the following technologies
 
 
 Implementation Timeline
+
 Friday Afternoon and Weekend: Research related project info. Setup project and webpack configuration. The overall layout (as seen in the wireframe) should be able to viewed by end of weekend. Create all the necessary classes.
 
 Monday: Begin work on graphics that will be displayed to user. Work on logic implementation for user input.

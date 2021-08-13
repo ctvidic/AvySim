@@ -78,12 +78,11 @@ In addition, the project will include:
 **Technologies, Libraries, APIs**
 This project will be implemented with the following technologies
 
+	• Webpack and Babel to bundle and transpile the source Javascript code
 
-•	Webpack and Babel to bundle and transpile the source Javascript code
+	• npm to manage project dependencies
 
-•	npm to manage project dependencies
-
-•	P5.js to create the dynamic canvas visualization
+	• P5.js to create the dynamic canvas visualization
 
 
 **Implementation Timeline**
@@ -99,7 +98,7 @@ Wednesday: Improve the graphics and overall appearance. Improve dynamics of grap
 
 **Bonus Features**
 
-•	Implement the Weatherbit.io historical weather API to input historical snow conditions based off user location
+	• Implement the Weatherbit.io historical weather API to input historical snow conditions based off user location
 
 
 

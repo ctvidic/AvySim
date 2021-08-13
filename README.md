@@ -21,6 +21,30 @@ o		Ex avalanche types: Glide, Cornice, Persistent Slab, etc
 
 •	Associated info for the avalanche type, and an explanation for why it was chosen based off user conditions
 
+****Calculations for Avalanche Type****
+
+User Input:
+	• Snowpack: (inches)
+	• Temperature: (degree fahreinheit)
+	• Slope angle: 0 - 90 degrees
+	• Sunny: (True, False)
+	• Precipitation: (True, False)
+	• Windspeed: 0-30 mph
+	• Weak Layer: (True, False)
+
+	
+•	Wind Slab, Cornice Fall: Windspeed > 15 mph
+•	Persisent Slab: Weak Layer = True
+•	Loose Wet/Wet Slab: Temperature > 40F, Sunny = True OR Precipitation = True
+•	Storm Slab: Precipitation = True
+
+If slope angle is less than 30 degrees or greater than 45, there will be no avalanche (out of angle)
+If snowpack is zero there will be no avalanche (no snow)
+
+
+
+
+
 
 In addition, the project will include:
 

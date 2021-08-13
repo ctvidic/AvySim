@@ -83,8 +83,6 @@ This project will be implemented with the following technologies
 
 	• npm to manage project dependencies
 
-	• P5.js to create the dynamic canvas visualization
-
 
 **Implementation Timeline**
 

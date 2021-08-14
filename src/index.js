@@ -15,9 +15,10 @@ document.addEventListener("DOMContentLoaded", () =>{
             let peak = this.canvas.height / 3;
             this.ctx.beginPath();
             this.ctx.moveTo(0, 2/3*this.canvas.height);
-            this.ctx.lineTo(this.canvas.width / 3, peak);
-            this.ctx.lineTo(-4*this.slopeVal+this.canvas.width, this.canvas.height);
-            this.ctx.stroke();
+            this.ctx.lineTo(this.canvas.width / 5, peak);
+            this.ctx.lineTo(-6*this.slopeVal+this.canvas.width, this.canvas.height);
+            this.ctx.lineTo(0, this.canvas.height);
+            this.ctx.fill();
         }
       
     }
@@ -38,8 +39,17 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.ctx.beginPath();
             this.ctx.moveTo(0, 2 / 3 * this.canvas.height - this.snowVal);
             debugger;
-            this.ctx.lineTo(this.canvas.width / 3, peak - this.snowVal);
-            this.ctx.lineTo(-4 * this.slopeVal + this.canvas.width, this.canvas.height - this.snowVal);
+            if (this.slopeVal > 70) {
+                this.snowVal /= 1.5;
+            }
+            if (this.slopeVal > 75) {
+                this.snowVal /= 2;
+            }
+            if (this.slopeVal > 80) {
+                this.snowVal /= 2.5;
+            }
+            this.ctx.lineTo(this.canvas.width / 5, peak - this.snowVal);
+            this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height - this.snowVal);
             this.ctx.stroke();
         }
     }

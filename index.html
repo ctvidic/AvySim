@@ -17,14 +17,25 @@
 <body>
     <h1>AvySim</h1>
     <div id="main-board">
-        <canvas id="display-canvas" width=720 height=480></canvas>
+        <canvas id="display-canvas" width=960 height=540></canvas>
 
         <div id="controls">
             <p>Slope Angle: </p>
-            <input type="range" min = "5" max="90" step="5" class="slider" id="slope">
+            <input type="range" min = "5" max="90" step="5" class="slider" id="slope" oninput="this.nextElementSibling.value = this.value">
+            <output></output>
             <p>Snowpack: </p>
             <input type="range" min="2" max="40" step="2" class="slider" id="snow">
+            <p>Temperature </p>
+            <input type="range" min="2" max="40" step="2" class="slider" id="temperature">
+            <p>Windspeed </p>
+            <input type="range" min="2" max="40" step="2" class="slider" id="windspeed">
         </div>
+
+    </div>
+
+    <div id="description" width=960 height=300>
+        
+        
     </div>
 </body>
 

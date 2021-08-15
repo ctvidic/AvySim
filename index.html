@@ -30,30 +30,54 @@
                 <input type="range" min="0" max="50" step="2" class="slider" id="temperature">
                 <p>Windspeed </p>
                 <input type="range" min="2" max="40" step="2" class="slider" id="windspeed">
+                <p>Precipitation: </p>
+                <form>
+                    <input type="radio" name="choice" value="true" id="prec-true">
+                    <label for="choice-yes">True</label>
+                    <input type="radio" name="choice" value="false" id="prec-false">
+                    <label for="choice-no">False</label>
+                </form>
+                <p>UV: </p>
+                <form id="uv">
+                    <input type="radio" name="choice" value="true" id="uv-true">
+                    <label for="choice-yes">High</label>
+                    <input type="radio" name="choice" value="false" id="uv-false" checked="checked">
+                    <label for="choice-no">Low</label>
+                </form>
+                <p>Weak Layer?: </p>
+                <form>
+                    <input type="radio" name="choice" value="true" id="weak-true">
+                    <label for="choice-yes">True</label>
+                    <input type="radio" name="choice" value="false" id="weak-false">
+                    <label for="choice-no">False</label>
+                </form>
             </div>
 
         </div>
 
         <div id="description">
             <div id="textdescription">
-                <ul id="outofrange">
+                <div id="outofrange">
                     Slab avalanches generally occur at slope angles between 30 and 45 degrees. On steeper slopes, snow doesn’t typically
                     accumulate enough to form a slab, while shallower slopes are not steep enough for the snow to slide downhill.
-                </ul>
-                 <ul id="wayoutofrange">
+                </div>
+                 <div id="wayoutofrange">
                     <b>Too steep for snow to accumumulate enough to form a slab!</b>
-                 </ul>
-                 <ul id="lowsnow">
+                 </div>
+                 <div id="lowsnow">
                    <b>Not enough snow!</b>
-                 </ul>
-                 <ul id="windloaded">
+                 </div>
+                 <div id="windloaded">
+                    <div id="windloadedtext">
                     <b>Wind Loaded: </b>
                     Release of a cohesive layer of snow (a slab) formed by the wind. Wind typically transports snow from the upwind sides of
                     terrain features and deposits snow on the downwind side. Wind slabs are often smooth and rounded and sometimes sound
                     hollow, and can range from soft to hard. Wind slabs that form over a persistent weak layer (surface hoar, depth hoar, or
                     near-surface facets) may be termed Persistent Slabs or may develop into Persistent Slabs. Typical wind loaded avalanche problems 
                     include cornice and windslabs.
-                 </ul>
+                    </div>
+                    <img src='./assets/wind2.jpg'></img>
+                 </div>
                  <div id="wet">
                     <div id="wettext">
                     <b>Wet Slab: </b>
@@ -61,7 +85,7 @@
                        bond between the slab and the surface below (snow or ground). They often occur during prolonged warming events and/or
                        rain-on-snow events. Wet Slabs can be very destructive.
                     </div>
-                    <img src='./assets/wind2.jpg'></img>
+                    <img src='./assets/wetslab11.jpg'></img>
                 </div>
             </div>
             

@@ -43,23 +43,13 @@ document.addEventListener("DOMContentLoaded", () =>{
             //Slope Description
             if (this.slopeVal > 70 && this.slopeVal <= 75) {
                 this.snowVal /= 1.5;
-                outofrange.style.display = "block";
-                wayoutofrange.style.display = "none";
             }else if (this.slopeVal > 75 && this.slopeVal <= 80) {
                 this.snowVal /= 2;
-                outofrange.style.display = "block";
-                wayoutofrange.style.display = "none";
             }else if (this.slopeVal > 80) {
-                wayoutofrange.style.display="block";
-                outofrange.style.display = "none"
                 this.snowVal /= 2.5;
             }else if (this.slopeVal < 30){
-                outofrange.style.display = "block"
             }
-            else{
-                wayoutofrange.style.display = "none";
-                outofrange.style.display = "none"
-            }
+
             this.ctx.lineTo(this.canvas.width / 5, peak - this.snowVal);
             this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height - this.snowVal);
             this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width,this.canvas.height)
@@ -72,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () =>{
         constructor(){
             this.canvas = document.getElementById("display-canvas")
             this.ctx = this.canvas.getContext('2d');
-         
             this.windArray = [];
             this.x=0;
             this.y=0
@@ -129,6 +118,30 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
     }
 
+    class DisplayWeakLayer{
+        constructor() {
+            this.canvas = document.getElementById("display-canvas")
+            this.ctx = this.canvas.getContext('2d');
+            this.weakLayer = false;
+            this.drawLayer();
+        }
+        drawLayer(slopeVal, snowVal) {
+            let peak = this.canvas.height / 3;
+            let weakValue = document.getElementById("uv");
+            this.weakLayer = weakValue.checked;
+            debugger;
+            if (this.weakLayer === true){
+                this.ctx.moveTo(this.canvas.width / 5, peak - (snowVal/2));
+                this.ctx.lineTo(this.canvas.width, peak - (snowVal / 2))
+                // this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height - (snowValue/2));
+                // this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height)
+                this.ctx.stroke();
+            }
+
+
+        }
+    }
+
     class TextBox{
         constructor(){
             this.canvas = document.getElementById("display-canvas")
@@ -144,21 +157,23 @@ document.addEventListener("DOMContentLoaded", () =>{
             let windValue = Number.parseInt(windSlider.value);
             let snowSlider = document.getElementById("snow");
             let snowValue = Number.parseInt(snowSlider.value);
+            let slopeSlider = document.getElementById("slope");
+            let slopeValue = slopeSlider.value;
 
             if (snowValue < 10) {
-                lowsnow.style.display = "block";
+                lowsnow.style.display = "flex";
                 wet.style.display = "none";
                 windloaded.style.display = "none";
             } else {
                 lowsnow.style.display = "none"
                 if (tempValue > 40) {
-                    wet.style.display = "flex"
+                    wet.style.display = "flex";
                 } else {
-                    wet.style.display = "none"
+                    wet.style.display = "none";
                 }
 
                 if (windValue > 30 && tempValue < 40) {
-                    windloaded.style.display = "block";
+                    windloaded.style.display = "flex";
                 } else {
                     windloaded.style.display = "none";
                 }
@@ -174,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.animate = this.animate.bind(this)
             this.windCanvas = new DisplayWind;
             this.tempCanvas = new DisplayTemperature;
+            this.weakLayer = new DisplayWeakLayer;
             this.textbox = new TextBox;
         }
         animate(){
@@ -183,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.windCanvas.drawWind();
             this.tempCanvas.drawTemp();
             this.textbox.createText();
+            this.weakLayer.drawLayer(mountainCanvas.slopeVal, snowCanvas.snowVal);
             requestAnimationFrame(this.animate)
         }
     }

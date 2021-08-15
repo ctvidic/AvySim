@@ -54,16 +54,16 @@ h1{
     width: 1160px;
     height: 200px;
     border: 1px solid black;
-    display: flex;
-    
+}
+
+#windloaded{
+    justify-content: space-between;
 }
 
 #textdescription img{
-    margin-top : 0;
     width: 199px;
     height: 199px;
     border: 1px solid black;
-    
 }
 /* #photodescription{
     width: 200px;
@@ -90,10 +90,10 @@ h1{
     font-family: 'Play', sans-serif;
 }
 #windloaded{
-    list-style-type: circle;
     display: none;
     font-family: 'Play', sans-serif;
 }
+
 #wet{
     display: none;
     font-family: 'Play', sans-serif;

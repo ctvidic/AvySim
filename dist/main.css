@@ -38,9 +38,6 @@ h1{
     border: 1px solid black
 }
 
-
-
-
 #display-canvas{
     border: 1px solid black
 }
@@ -54,17 +51,28 @@ h1{
     justify-content: center;
 }
 #textdescription{
-    width: 960px;
+    width: 1160px;
     height: 200px;
     border: 1px solid black;
+    display: flex;
+    
 }
 
-#photodescription{
+#textdescription img{
+    margin-top : 0;
+    width: 199px;
+    height: 199px;
+    border: 1px solid black;
+    
+}
+/* #photodescription{
     width: 200px;
-    height: 200px;
+    height: 180px;
+    margin: 10px;
     border: 1px solid black;
 
-}
+} */
+
 #outofrange{
     list-style-type: circle;
     display: none;
@@ -76,9 +84,17 @@ h1{
     display: none;
     font-family: 'Play', sans-serif;
 }
-
+#lowsnow{
+    list-style-type: circle;
+    display: none;
+    font-family: 'Play', sans-serif;
+}
 #windloaded{
     list-style-type: circle;
+    display: none;
+    font-family: 'Play', sans-serif;
+}
+#wet{
     display: none;
     font-family: 'Play', sans-serif;
 }

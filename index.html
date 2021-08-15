@@ -27,7 +27,7 @@
                 <p>Snowpack: </p>
                 <input type="range" min="2" max="40" step="2" class="slider" id="snow">
                 <p>Temperature </p>
-                <input type="range" min="2" max="40" step="2" class="slider" id="temperature">
+                <input type="range" min="0" max="50" step="2" class="slider" id="temperature">
                 <p>Windspeed </p>
                 <input type="range" min="2" max="40" step="2" class="slider" id="windspeed">
             </div>
@@ -41,7 +41,10 @@
                     accumulate enough to form a slab, while shallower slopes are not steep enough for the snow to slide downhill.
                 </ul>
                  <ul id="wayoutofrange">
-                    Too steep for snow to accumumulate enough to form a slab
+                    <b>Too steep for snow to accumumulate enough to form a slab!</b>
+                 </ul>
+                 <ul id="lowsnow">
+                   <b>Not enough snow!</b>
                  </ul>
                  <ul id="windloaded">
                     <b>Wind Loaded: </b>
@@ -51,10 +54,17 @@
                     near-surface facets) may be termed Persistent Slabs or may develop into Persistent Slabs. Typical wind loaded avalanche problems 
                     include cornice and windslabs.
                  </ul>
+                 <div id="wet">
+                    <div id="wettext">
+                    <b>Wet Slab: </b>
+                       Release of a cohesive layer of snow (a slab) that is generally moist or wet when the flow of liquid water weakens the
+                       bond between the slab and the surface below (snow or ground). They often occur during prolonged warming events and/or
+                       rain-on-snow events. Wet Slabs can be very destructive.
+                    </div>
+                    <img src='./assets/wind2.jpg'></img>
+                </div>
             </div>
-            <div id="photodescription">
             
-            </div>
             
             
         </div>

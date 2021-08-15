@@ -16,27 +16,52 @@
 
 <body>
     <h1>AvySim</h1>
-    <div id="main-board">
-        <canvas id="display-canvas" width=960 height=540></canvas>
+    <div id="fullboard">
+        <div id="main-board">
+            <canvas id="display-canvas" width=960 height=540></canvas>
 
-        <div id="controls">
-            <p>Slope Angle: </p>
-            <input type="range" min = "5" max="90" step="5" class="slider" id="slope" oninput="this.nextElementSibling.value = this.value">
-            <output></output>
-            <p>Snowpack: </p>
-            <input type="range" min="2" max="40" step="2" class="slider" id="snow">
-            <p>Temperature </p>
-            <input type="range" min="2" max="40" step="2" class="slider" id="temperature">
-            <p>Windspeed </p>
-            <input type="range" min="2" max="40" step="2" class="slider" id="windspeed">
+            <div id="controls">
+                <p>Slope Angle: </p>
+                <input type="range" min = "5" max="90" step="5" class="slider" id="slope" oninput="this.nextElementSibling.value = this.value">
+                <output></output>
+                <p>Snowpack: </p>
+                <input type="range" min="2" max="40" step="2" class="slider" id="snow">
+                <p>Temperature </p>
+                <input type="range" min="2" max="40" step="2" class="slider" id="temperature">
+                <p>Windspeed </p>
+                <input type="range" min="2" max="40" step="2" class="slider" id="windspeed">
+            </div>
+
         </div>
 
+        <div id="description">
+            <div id="textdescription">
+                <ul id="outofrange">
+                    Slab avalanches generally occur at slope angles between 30 and 45 degrees. On steeper slopes, snow doesn’t typically
+                    accumulate enough to form a slab, while shallower slopes are not steep enough for the snow to slide downhill.
+                </ul>
+                 <ul id="wayoutofrange">
+                    Too steep for snow to accumumulate enough to form a slab
+                 </ul>
+                 <ul id="windloaded">
+                    <b>Wind Loaded: </b>
+                    Release of a cohesive layer of snow (a slab) formed by the wind. Wind typically transports snow from the upwind sides of
+                    terrain features and deposits snow on the downwind side. Wind slabs are often smooth and rounded and sometimes sound
+                    hollow, and can range from soft to hard. Wind slabs that form over a persistent weak layer (surface hoar, depth hoar, or
+                    near-surface facets) may be termed Persistent Slabs or may develop into Persistent Slabs. Typical wind loaded avalanche problems 
+                    include cornice and windslabs.
+                 </ul>
+            </div>
+            <div id="photodescription">
+            
+            </div>
+            
+            
+        </div>
     </div>
 
-    <div id="description" width=960 height=300>
-        
-        
-    </div>
+    
+
 </body>
 
 </html>

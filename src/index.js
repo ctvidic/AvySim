@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
 
         drawMountain(){
+            let slopeSlider = document.getElementById("slope");
+            let slopeValue = slopeSlider.value;
+            this.slopeVal = Number.parseInt(slopeValue);
             let peak = this.canvas.height / 3;
             this.ctx.beginPath();
             this.ctx.moveTo(0, 2/3*this.canvas.height);
@@ -22,46 +25,117 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.ctx.lineTo(0, this.canvas.height);
             this.ctx.fill();
         }
+        
       
     }
 
     class DisplaySnow{
         constructor(slopeVal) {
             this.canvas = document.getElementById("snow-canvas")
-            this.ctx = this.canvas.getContext('2d');
-            let snowSlider = document.getElementById("snow");
-            let snowValue = snowSlider.value;
-            this.snowVal = Number.parseInt(snowValue);
-            this.slopeVal = slopeVal
+            this.snowSlider = document.getElementById("snow");
+            this.snowValue = this.snowSlider.value;
+            this.snowVal = Number.parseInt(this.snowValue);
+            this.snowCords = {
+                topRCornerX: -6 * slopeVal + this.canvas.width,
+                topRCornerY: this.canvas.height - this.snowVal,
+                bottomRCornerX: -6 * slopeVal + this.canvas.width + 6,
+                bottomRCornerY: this.canvas.height
+            };
+            this.xSpeed = 10;
+            this.move = false;
+            this.end = false;
             this.drawSnow();
         }
 
-        drawSnow() {
+        drawSnow(slopeVal) {
+            this.ctx = this.canvas.getContext('2d');
             let peak = this.canvas.height / 3;
+            if (!this.move){
+            this.snowCords = {
+                topRCornerX: -6 * slopeVal + this.canvas.width,
+                topRCornerY: this.canvas.height - this.snowVal,
+                bottomRCornerX: -6 * slopeVal + this.canvas.width + 6,
+                bottomRCornerY: this.canvas.height,
+                topLCornerX: this.canvas.width / 5,
+                topLCornerY: peak - this.snowVal,
+                bottomLCornerX: this.canvas.width / 5,
+                bottomLCornerY: peak
+            };
+            }
+            this.snowSlider = document.getElementById("snow");
+            this.snowValue = this.snowSlider.value;
+            this.snowVal = Number.parseInt(this.snowValue);
+            
+            debugger;
+            if (this.move && this.snowCords.topRCornerX < this.canvas.width){
+                this.snowCords.bottomRCornerX += this.xSpeed;
+                this.snowCords.topRCornerX+= this.xSpeed;
+                if (this.xSpeed > 1){
+                    this.xSpeed -= .3;
+                }else if(this.xSpeed < 1 && this.xSpeed > 0){
+                    this.xSpeed -= .03;
+                }else{
+                    this.xSpeed = 0;
+                }
+
+                if (this.snowCords.topRCornerX > this.canvas.width){
+                    this.move = false;
+                    this.end = true;
+                }
+            }
+            //Slope Description
+            if (slopeVal > 70 && slopeVal <= 75) {
+                this.snowVal /= 1.5;
+            }else if (slopeVal > 75 && slopeVal <= 80) {
+                this.snowVal /= 2;
+            }else if (slopeVal > 80) {
+                this.snowVal /= 2.5;
+            }else if (slopeVal < 30){
+            }
+            debugger;
+            
+            if (!this.move){
             this.ctx.beginPath();
             this.ctx.moveTo(0, 2 / 3 * this.canvas.height - this.snowVal);
-            
-            //Slope Description
-            if (this.slopeVal > 70 && this.slopeVal <= 75) {
-                this.snowVal /= 1.5;
-            }else if (this.slopeVal > 75 && this.slopeVal <= 80) {
-                this.snowVal /= 2;
-            }else if (this.slopeVal > 80) {
-                this.snowVal /= 2.5;
-            }else if (this.slopeVal < 30){
-            }
-
             this.ctx.lineTo(this.canvas.width / 5, peak - this.snowVal);
-            this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height - this.snowVal);
-            this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width + 6, this.canvas.height);
-            this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height);
+            this.ctx.lineTo(this.snowCords.topRCornerX, this.canvas.height - this.snowVal);
+            this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
+            this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
+            this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height);
             this.ctx.lineTo(this.canvas.width / 5, peak);
             this.ctx.lineTo(0, 2 / 3 * this.canvas.height);
             this.ctx.lineTo(0, 2 / 3 * this.canvas.height-this.snowVal);
             this.ctx.fillStyle ='white';
             this.ctx.fill();
             this.ctx.stroke();
-            
+            }else{
+                this.ctx.beginPath();
+                this.ctx.moveTo(0, 2 / 3 * this.canvas.height - this.snowVal);
+                this.ctx.lineTo(this.canvas.width / 5, peak - this.snowVal);
+                this.ctx.lineTo(this.canvas.width / 5, peak);
+                this.ctx.lineTo(0, 2 / 3 * this.canvas.height)
+                this.ctx.fillStyle = 'white';
+                this.ctx.fill();
+                this.ctx.stroke();
+
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.snowCords.topLCornerX, this.snowCords.topLCornerY);
+                this.ctx.lineTo(this.snowCords.topRCornerX, this.canvas.height - this.snowVal);
+                this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
+                this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height);
+                // this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
+                this.ctx.lineTo(this.snowCords.bottomLCornerX, this.snowCords.bottomLCornerY);
+                this.ctx.lineTo(this.canvas.width / 5, peak);
+                this.ctx.fillStyle = 'white';
+                this.ctx.fill();
+                this.ctx.stroke();
+            }
+        }
+
+        moveSnow(){
+            this.move = true;
+            this.snowCords.topLCornerX += xSpeed;
+            this.snowCords.bottomLCornerX += xSpeed;
         }
     }
 
@@ -89,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             //     this.ctx.stroke();
             // }
             // this.x+=this.windValue/10;
-            if (this.windValue > 10){
+            if (this.windValue > 0){
                 let y = Math.random() * 4-7
                 this.ctx.moveTo(0, 50);
                 this.ctx.lineTo(150 + this.windValue / 2, 50 + y * this.windValue / 20);
@@ -299,18 +373,25 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.weakLayer = new DisplayWeakLayer;
             this.snowflakes = new DisplayPrecipitation;
             this.textbox = new TextBox;
+            this.mountainCanvas = new DisplayMountain;
+            this.snowCanvas = new DisplaySnow(this.mountainCanvas.slopeVal);
         }
         animate(){
-            debugger;
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.snowctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            let mountainCanvas = new DisplayMountain;
-            let snowCanvas = new DisplaySnow(mountainCanvas.slopeVal);
+            this.mountainCanvas.drawMountain();
             this.windCanvas.drawWind();
             this.tempCanvas.drawTemp();
             this.textbox.createText();
-            this.weakLayer.drawLayer(mountainCanvas.slopeVal, snowCanvas.snowVal);
+            this.weakLayer.drawLayer(this.mountainCanvas.slopeVal, this.snowCanvas.snowVal);
             this.snowflakes.drawPrec(this.windCanvas.windValue, this.tempCanvas.tempValue);
+            const initiate = document.getElementById("submit")
+            let snowCanvas = this.snowCanvas;
+            debugger;
+            this.snowCanvas.drawSnow(this.mountainCanvas.slopeVal);
+            initiate.onclick = function (){
+                snowCanvas.moveSnow();
+            }
             requestAnimationFrame(this.animate)
 
         }
@@ -319,6 +400,14 @@ document.addEventListener("DOMContentLoaded", () =>{
     
     let displayCanvas = new DisplayCanvas;
     displayCanvas.animate();
+
+    const reset = document.getElementById("reset");
+    reset.onclick = function(){
+        let resetCanvas = new DisplayCanvas;
+        resetCanvas.animate();
+    }
+
+    
     // let mountainCanvas = new displayMountain;
     // mountainCanvas.animate();
 

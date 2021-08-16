@@ -19,7 +19,7 @@
     <div id="fullboard">
         <div id="main-board">
             <canvas id="display-canvas" width=960 height=540></canvas>
-
+            <canvas id="snow-canvas" width=960 height=540></canvas> 
             <div id="controls">
                 <p>Slope Angle: </p>
                 <input type="range" min = "5" max="90" step="5" class="slider" id="slope" oninput="this.nextElementSibling.value = this.value">
@@ -37,13 +37,6 @@
                     <input type="radio" name="choice" value="false" id="prec-false">
                     <label for="choice-no">False</label>
                 </form>
-                <p>UV: </p>
-                <form id="uv">
-                    <input type="radio" name="choice" value="true" id="uv-true">
-                    <label for="choice-yes">High</label>
-                    <input type="radio" name="choice" value="false" id="uv-false" checked="checked">
-                    <label for="choice-no">Low</label>
-                </form>
                 <p>Weak Layer?: </p>
                 <form>
                     <input type="radio" name="choice" value="true" id="weak-true">
@@ -51,6 +44,10 @@
                     <input type="radio" name="choice" value="false" id="weak-false">
                     <label for="choice-no">False</label>
                 </form>
+                <br>
+                <button id="submit" input="submit"> Start Avalanche</button>
+                <button id="reset" input="submit"> Reset</button>
+
             </div>
 
         </div>
@@ -87,6 +84,28 @@
                     </div>
                     <img src='./assets/wetslab11.jpg'></img>
                 </div>
+                <div id="persistent">
+                    <div id="persistenttext">
+                        <b>Persistent Slab: </b>
+                        Release of a cohesive layer of soft to hard snow (a slab) in the middle to upper snowpack, when the bond to an
+                        underlying persistent weak layer breaks. Persistent layers include: surface hoar, depth hoar, near-surface facets, or
+                        faceted snow. Persistent weak layers can continue to produce avalanches for days, weeks or even months, making them
+                        especially dangerous and tricky. As additional snow and wind events build a thicker slab on top of the persistent weak
+                        layer, this avalanche problem may develop into a Deep Persistent Slab.
+                    </div>
+                    <img src='./assets/download.jpg'></img>
+                </div>
+                <div id="precipitation">
+                    <div id="precipitationtext">
+                        <b>Storm Slab: </b>
+                        Release of a soft cohesive layer (a slab) of new snow that breaks within the storm snow or on the old snow surface.
+                        Storm-slab problems typically last between a few hours and few days. Storm-slabs that form over a persistent weak layer
+                        (surface hoar, depth hoar, or near-surface facets) may be termed Persistent Slabs or may develop into Persistent Slabs.
+                    </div>
+                    <img src='./assets/storm.webp'></img>
+                </div>
+
+                
             </div>
             
             

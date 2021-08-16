@@ -113,29 +113,36 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.createSnowflakes();
         }
         drawPrec(windValue,tempValue) {
-            debugger;
             let precValue = document.getElementById("prec-true").checked;
-            if (precValue && tempValue < 35){
                 for(let i = 0; i<this.particlesArray.length;i++){
-                    this.ctx.beginPath();
-                    this.ctx.arc(
-                        this.particlesArray[i].x,
-                        this.particlesArray[i].y,
-                        this.particlesArray[i].radius,
-                        0,
-                        Math.PI*2,
-                        false
-                    )
-                    this.ctx.fill();
-                    this.particlesArray[i].y += this.particlesArray[i].speedY;
-                    this.particlesArray[i].x += (windValue)/60;
-                    if (this.particlesArray[i].y > this.canvas.height){
-                        this.particlesArray[i].y = Math.random(0,10);
+                    if (precValue && tempValue <= 35){
+                        this.ctx.beginPath();
+                        this.ctx.arc(
+                            this.particlesArray[i].x,
+                            this.particlesArray[i].y,
+                            this.particlesArray[i].radius,
+                            0,
+                            Math.PI*2,
+                            false
+                        )
+                        this.ctx.fill();
+                        this.particlesArray[i].y += this.particlesArray[i].speedY;
+                        this.particlesArray[i].x += (windValue)/20;
+                    }else if(precValue && tempValue > 35){
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(this.particlesArray[i].x, this.particlesArray[i].y)
+                        this.ctx.lineTo(this.particlesArray[i].x, this.particlesArray[i].y+8)
+                        this.ctx.stroke();
+                        this.particlesArray[i].y += 5
+                        this.particlesArray[i].x += (windValue) / 50;
+
+                    }
+                    if (this.particlesArray[i].y > this.canvas.height) {
+                        this.particlesArray[i].y = Math.random(0, 10);
                     }
                     if (this.particlesArray[i].x > this.canvas.width) {
                         this.particlesArray[i].x = Math.random() * this.canvas.width;
                     }
-                }
                 //  this.moveSnowflakes();
             }
         }
@@ -147,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                     y: Math.random() * this.canvas.height,
                     speedY: 1,
                     speedX: 2,
-                    radius: Math.random(1,6)
+                    radius: Math.random()+1
                 })
             }
         }
@@ -165,11 +172,12 @@ document.addEventListener("DOMContentLoaded", () =>{
         constructor(){
             this.canvas = document.getElementById("display-canvas")
             this.ctx = this.canvas.getContext('2d');
-            let tempSlider = document.getElementById("temperature");
-            this.tempValue = Number.parseInt(tempSlider.value);
+            this.tempSlider = document.getElementById("temperature");
+            this.tempValue = Number.parseInt(this.tempSlider.value);
             this.drawTemp();
         }
-        drawTemp(){   
+        drawTemp(){ 
+            this.tempValue = Number.parseInt(this.tempSlider.value);
         }
     }
 

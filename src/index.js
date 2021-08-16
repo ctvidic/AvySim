@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     class DisplaySnow{
         constructor(slopeVal) {
-            this.canvas = document.getElementById("display-canvas")
+            this.canvas = document.getElementById("snow-canvas")
             this.ctx = this.canvas.getContext('2d');
             let snowSlider = document.getElementById("snow");
             let snowValue = snowSlider.value;
@@ -53,7 +53,13 @@ document.addEventListener("DOMContentLoaded", () =>{
 
             this.ctx.lineTo(this.canvas.width / 5, peak - this.snowVal);
             this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height - this.snowVal);
-            this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width,this.canvas.height)
+            this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width + 6, this.canvas.height);
+            this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height);
+            this.ctx.lineTo(this.canvas.width / 5, peak);
+            this.ctx.lineTo(0, 2 / 3 * this.canvas.height);
+            this.ctx.lineTo(0, 2 / 3 * this.canvas.height-this.snowVal);
+            this.ctx.fillStyle ='white';
+            this.ctx.fill();
             this.ctx.stroke();
             
         }
@@ -285,6 +291,8 @@ document.addEventListener("DOMContentLoaded", () =>{
         constructor(){
             this.canvas = document.getElementById("display-canvas")
             this.ctx = this.canvas.getContext('2d');
+            this.snowcanvas = document.getElementById("snow-canvas")
+            this.snowctx = this.snowcanvas.getContext('2d');
             this.animate = this.animate.bind(this)
             this.windCanvas = new DisplayWind;
             this.tempCanvas = new DisplayTemperature;
@@ -293,7 +301,9 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.textbox = new TextBox;
         }
         animate(){
+            debugger;
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.snowctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             let mountainCanvas = new DisplayMountain;
             let snowCanvas = new DisplaySnow(mountainCanvas.slopeVal);
             this.windCanvas.drawWind();

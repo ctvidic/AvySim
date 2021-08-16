@@ -25,7 +25,13 @@ h1 {
 
 #main-board {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+}
+
+#snow-canvas {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid black;
 }
 
 #fullboard {

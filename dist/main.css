@@ -1,4 +1,11 @@
-html{
+/*!********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/styles/index.scss ***!
+  \********************************************************************************************************************************************/
+
+/*!*************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
+  \*************************************************************************************************************************************/
+html {
   margin: 0;
   padding: 0;
   border: 0;
@@ -9,62 +16,63 @@ html{
   color: inherit;
 }
 
-h1{
-    font-family: 'Play', sans-serif;
-    font-size: 80px;
-    display: flex;
-    justify-content: center;
+h1 {
+  font-family: "Play", sans-serif;
+  font-size: 80px;
+  display: flex;
+  justify-content: center;
 }
 
-#main-board{
-    display: flex;
-    justify-content: center;
- 
+#main-board {
+  display: flex;
+  justify-content: center;
 }
 
-#fullboard{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+#fullboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#controls{
-    font-family: 'Play', sans-serif;
-    display: flex;
-    width: 200px;
-    justify-content: center;
-    flex-direction: column;
-    border: 1px solid black
+#controls {
+  font-family: "Play", sans-serif;
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid black;
 }
 
-#display-canvas{
-    border: 1px solid black
+#display-canvas {
+  border: 1px solid black;
 }
 
-#description{
-    border: 1px solid black;
-    width: 1160px;
-    height: 200px;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-}
-#textdescription{
-    width: 1160px;
-    height: 200px;
-    border: 1px solid black;
+#description {
+  border: 1px solid black;
+  width: 1160px;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-#windloaded{
-    justify-content: space-between;
+#textdescription {
+  width: 1160px;
+  height: 200px;
+  border: 1px solid black;
 }
 
-#textdescription img{
-    width: 199px;
-    height: 199px;
-    border: 1px solid black;
+#windloaded {
+  justify-content: space-between;
 }
+
+#textdescription img {
+  width: 199px;
+  height: 199px;
+  border: 1px solid black;
+}
+
 /* #photodescription{
     width: 200px;
     height: 180px;
@@ -72,31 +80,42 @@ h1{
     border: 1px solid black;
 
 } */
-
-#outofrange{
-    list-style-type: circle;
-    display: none;
-    font-family: 'Play', sans-serif;
+#outofrange {
+  list-style-type: circle;
+  display: none;
+  font-family: "Play", sans-serif;
 }
 
-#wayoutofrange{
-    list-style-type: circle;
-    display: none;
-    font-family: 'Play', sans-serif;
-}
-#lowsnow{
-    list-style-type: circle;
-    display: none;
-    font-family: 'Play', sans-serif;
-}
-#windloaded{
-    display: none;
-    font-family: 'Play', sans-serif;
+#wayoutofrange {
+  list-style-type: circle;
+  display: none;
+  font-family: "Play", sans-serif;
 }
 
-#wet{
-    display: none;
-    font-family: 'Play', sans-serif;
+#lowsnow {
+  list-style-type: circle;
+  display: none;
+  font-family: "Play", sans-serif;
+}
+
+#windloaded {
+  display: none;
+  font-family: "Play", sans-serif;
+}
+
+#wet {
+  display: none;
+  font-family: "Play", sans-serif;
+}
+
+#persistent {
+  display: none;
+  font-family: "Play", sans-serif;
+}
+
+#precipitation {
+  display: none;
+  font-family: "Play", sans-serif;
 }
 
 .slider:hover {
@@ -111,8 +130,8 @@ h1{
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 .slider::-webkit-slider-thumb {
@@ -123,6 +142,3 @@ h1{
   background: grey;
   cursor: pointer;
 }
-
-
-

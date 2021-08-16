@@ -1,3 +1,4 @@
+// import { random } from "core-js/core/number";
 import "./styles/index.scss"
 
 document.addEventListener("DOMContentLoaded", () =>{
@@ -105,13 +106,67 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 
     class DisplayPrecipitation{
-        
+        constructor() {
+            this.canvas = document.getElementById("display-canvas")
+            this.ctx = this.canvas.getContext('2d');
+            this.particlesArray=[];
+            this.createSnowflakes();
+        }
+        drawPrec(windValue,tempValue) {
+            debugger;
+            let precValue = document.getElementById("prec-true").checked;
+            if (precValue && tempValue < 35){
+                for(let i = 0; i<this.particlesArray.length;i++){
+                    this.ctx.beginPath();
+                    this.ctx.arc(
+                        this.particlesArray[i].x,
+                        this.particlesArray[i].y,
+                        this.particlesArray[i].radius,
+                        0,
+                        Math.PI*2,
+                        false
+                    )
+                    this.ctx.fill();
+                    this.particlesArray[i].y += this.particlesArray[i].speedY;
+                    this.particlesArray[i].x += (windValue)/60;
+                    if (this.particlesArray[i].y > this.canvas.height){
+                        this.particlesArray[i].y = Math.random(0,10);
+                    }
+                    if (this.particlesArray[i].x > this.canvas.width) {
+                        this.particlesArray[i].x = Math.random() * this.canvas.width;
+                    }
+                }
+                //  this.moveSnowflakes();
+            }
+        }
+
+        createSnowflakes(){
+            for(let i =0; i<200;i++){
+                this.particlesArray.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    speedY: 1,
+                    speedX: 2,
+                    radius: Math.random(1,6)
+                })
+            }
+        }
+
+        // moveSnowflakes(){
+        //     debugger;
+        //     for(let i = 0;i<this.particlesArray.length;i++){
+        //         this.particlesArray[i] += 0;
+        //         this.particlesArray[i] += 0;
+        //     }
+        // }
     }
 
     class DisplayTemperature{
         constructor(){
             this.canvas = document.getElementById("display-canvas")
             this.ctx = this.canvas.getContext('2d');
+            let tempSlider = document.getElementById("temperature");
+            this.tempValue = Number.parseInt(tempSlider.value);
             this.drawTemp();
         }
         drawTemp(){   
@@ -127,13 +182,11 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
         drawLayer(slopeVal, snowVal) {
             let peak = this.canvas.height / 3;
-            let weakValue = document.getElementById("uv");
+            let weakValue = document.getElementById("weak-true");
             this.weakLayer = weakValue.checked;
-            debugger;
             if (this.weakLayer === true){
                 this.ctx.moveTo(this.canvas.width / 5, peak - (snowVal/2));
-                this.ctx.lineTo(this.canvas.width, peak - (snowVal / 2))
-                // this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height - (snowValue/2));
+                this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - (snowVal / 2));
                 // this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height)
                 this.ctx.stroke();
             }
@@ -159,23 +212,61 @@ document.addEventListener("DOMContentLoaded", () =>{
             let snowValue = Number.parseInt(snowSlider.value);
             let slopeSlider = document.getElementById("slope");
             let slopeValue = slopeSlider.value;
+            let weakValue = document.getElementById("weak-true");
+            let weakLayer = weakValue.checked;
+            let precValue = document.getElementById("prec-true").checked;
 
-            if (snowValue < 10) {
-                lowsnow.style.display = "flex";
+            if (slopeValue < 30 || slopeValue > 60){
+                outofrange.style.display = "flex";
+                lowsnow.style.display = "none";
                 wet.style.display = "none";
+                persistent.style.display = "none";
+                precipitation.style.display = "none";
                 windloaded.style.display = "none";
-            } else {
-                lowsnow.style.display = "none"
-                if (tempValue > 40) {
-                    wet.style.display = "flex";
-                } else {
+            }else{
+                outofrange.style.display = "none";
+                if (snowValue < 10) {
+                    outofrange.style.display = "none";
+                    lowsnow.style.display = "flex";
                     wet.style.display = "none";
-                }
-
-                if (windValue > 30 && tempValue < 40) {
-                    windloaded.style.display = "flex";
-                } else {
+                    persistent.style.display = "none";
+                    precipitation.style.display = "none";
                     windloaded.style.display = "none";
+                }else{
+                    lowsnow.style.display = "none";
+                    if (weakLayer && tempValue < 40){
+                        persistent.style.display = "flex";
+                        precipitation.style.display = "none";
+                        windloaded.style.display = "none";
+                        wet.style.display = "none";
+                    }else{
+                        persistent.style.display = "none";
+                        if (tempValue > 40){
+                            wet.style.display = "flex";
+                            persistent.style.display = "none";
+                            precipitation.style.display = "none";
+                            windloaded.style.display = "none";
+                        }else{
+                            wet.style.display = "none";
+                        }
+                    }
+                    if (precValue && tempValue < 35){
+                        persistent.style.display = "none";
+                        precipitation.style.display = "flex";
+                        windloaded.style.display = "none";
+                        wet.style.display = "none";
+                    }else{
+                        precipitation.style.display = "none";
+                    }
+                    if (windValue > 30 && tempValue < 40) {
+                        persistent.style.display = "none";
+                        precipitation.style.display = "none";
+                        windloaded.style.display = "flex";
+                        wet.style.display = "none";
+                    } else {
+                        windloaded.style.display = "none";
+                    }
+
                 }
             }
         }
@@ -190,6 +281,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.windCanvas = new DisplayWind;
             this.tempCanvas = new DisplayTemperature;
             this.weakLayer = new DisplayWeakLayer;
+            this.snowflakes = new DisplayPrecipitation;
             this.textbox = new TextBox;
         }
         animate(){
@@ -200,7 +292,9 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.tempCanvas.drawTemp();
             this.textbox.createText();
             this.weakLayer.drawLayer(mountainCanvas.slopeVal, snowCanvas.snowVal);
+            this.snowflakes.drawPrec(this.windCanvas.windValue, this.tempCanvas.tempValue);
             requestAnimationFrame(this.animate)
+
         }
     }
     

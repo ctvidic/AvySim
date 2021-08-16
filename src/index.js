@@ -70,6 +70,10 @@ document.addEventListener("DOMContentLoaded", () =>{
             if (this.move && this.snowCords.topRCornerX < this.canvas.width){
                 this.snowCords.bottomRCornerX += this.xSpeed;
                 this.snowCords.topRCornerX+= this.xSpeed;
+                this.snowCords.topLCornerX+=this.xSpeed;
+                this.snowCords.bottomLCornerX += this.xSpeed;
+                this.snowCords.topLCornerY += ((2/3*(this.canvas.height))/(4/5 * this.canvas.width-6*slopeVal))*this.xSpeed;
+                this.snowCords.bottomLCornerY += ((2/3 * (this.canvas.height)) / (4/5 * this.canvas.width - 6*slopeVal)) * this.xSpeed;
                 if (this.xSpeed > 1){
                     this.xSpeed -= .3;
                 }else if(this.xSpeed < 1 && this.xSpeed > 0){
@@ -126,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 // this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
                 this.ctx.lineTo(this.snowCords.bottomLCornerX, this.snowCords.bottomLCornerY);
                 this.ctx.lineTo(this.canvas.width / 5, peak);
+                this.ctx.lineTo(this.snowCords.topLCornerX, this.snowCords.topLCornerY)
                 this.ctx.fillStyle = 'white';
                 this.ctx.fill();
                 this.ctx.stroke();

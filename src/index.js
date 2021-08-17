@@ -167,13 +167,12 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.x=0;
             this.y=0
             this.rotation = 0;
-            this.createWind(snowVal);
             this.gravity=0;
             this.changeValue = 0;
             this.sizeChange = 1;
         }
 
-        drawWind(snowvalue){
+        drawWind(snowvalue,tempValue){
             this.snowVal = snowvalue
             let windSlider = document.getElementById("windspeed");
             this.windValue = Number.parseInt(windSlider.value);
@@ -186,22 +185,27 @@ document.addEventListener("DOMContentLoaded", () =>{
             //     this.ctx.stroke();
             // }
             // this.x+=this.windValue/10;
-            if (this.windValue > 0){
-                let y = Math.random() * 4-7
-                this.ctx.moveTo(0, 50);
-                this.ctx.lineTo(150 + this.windValue / 2, 50 + y * this.windValue / 20);
-                this.ctx.moveTo(0, 100);
-                this.ctx.lineTo(100 + this.windValue / 2, 100+y*this.windValue/20);
-                this.ctx.moveTo(0, 150);
-                this.ctx.lineTo(50+this.windValue/1.5, 150+y*this.windValue/20);
-                this.ctx.moveTo(0, 200);
-                this.ctx.lineTo(this.windValue, 200+y*this.windValue/20);
-                this.ctx.stroke();
-            }
+
+            //old four lines
+
+            
+            // if (this.windValue > 0){
+            //     let y = Math.random() * 4-7
+            //     this.ctx.moveTo(0, 50);
+            //     this.ctx.lineTo(150 + this.windValue / 2, 50 + y * this.windValue / 20);
+            //     this.ctx.moveTo(0, 100);
+            //     this.ctx.lineTo(100 + this.windValue / 2, 100+y*this.windValue/20);
+            //     this.ctx.moveTo(0, 150);
+            //     this.ctx.lineTo(50+this.windValue/1.5, 150+y*this.windValue/20);
+            //     this.ctx.moveTo(0, 200);
+            //     this.ctx.lineTo(this.windValue, 200+y*this.windValue/20);
+            //     this.ctx.stroke();
+            // }
 
             for (let i=0;i<this.windArray.length;i++){
                 let val  = this.windArray[i]
-                this.ctx.moveTo(val.x1,val.y1);
+                // this.ctx.moveTo(val.x1,val.y1);
+                this.ctx.beginPath()
                 this.ctx.arc (
                     val.x1,
                     val.y1,
@@ -213,27 +217,27 @@ document.addEventListener("DOMContentLoaded", () =>{
                 this.ctx.stroke();
                 val.x1 += 5 * Math.random()*this.windValue/40;
                 val.y1 -= 3 * Math.random() - val.gravity;
-                val.r -= .005
+                val.r -= .01
                 val.start += .1 * Math.PI
                 val.angle += .1 * Math.PI
-                val.gravity += .01
-                if (val.r < .01){
-                    debugger;
-                    this.windArray[i] = {
-                        x1: this.canvas.width / 5,
-                        y1: this.canvas.height / 3 - this.snowVal,
-                        r: 4,
-                        start: .5 * Math.PI,
-                        angle: 1 * Math.PI,
-                        gravity: 0
-                    }
-                }
+                val.gravity += .02
+                // if (val.r < .01){
+                //     debugger;
+                //     this.windArray[i] = {
+                //         x1: this.canvas.width / 5,
+                //         y1: this.canvas.height / 3 - this.snowVal,
+                //         r: 5,
+                //         start: .5 * Math.PI,
+                //         angle: 1 * Math.PI,
+                //         gravity: 0
+                //     }
+                // }
             }
-            if (this.windValue > 25 && this.windArray.length < 100){
+            if (this.windValue > 25 && this.windArray.length < 100 && tempValue < 35){
                     this.windArray.push({
-                        x1: this.canvas.width / 5 + Math.random()*10 -3,
+                        x1: this.canvas.width / 5 + Math.random()*10 -15,
                         y1: this.canvas.height / 3 - this.snowVal + Math.random()*10,
-                        r: 4,
+                        r: 5,
                         start: .5 * Math.PI,
                         angle: 1 * Math.PI,
                         gravity: 0
@@ -252,18 +256,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
         }
 
-        createWind(snowVal){
-            for (let i = 0; i < 20; i++) {
-                this.windArray.push({
-                    x1: this.canvas.width / 5,
-                    y1: this.canvas.height / 3 - snowVal,
-                    r: 3,
-                    start: .5 * Math.PI,
-                    angle: 1 * Math.PI,
-                    gravity: 0
-                })
-            }
-        }
+        
     }
 
 
@@ -470,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.snowctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.mountainCanvas.drawMountain(this.snowCanvas.end);
-            this.windCanvas.drawWind(this.snowCanvas.snowVal);
+            this.windCanvas.drawWind(this.snowCanvas.snowVal, this.tempCanvas.tempValue);
             this.tempCanvas.drawTemp();
             this.textbox.createText();
             this.weakLayer.drawLayer(this.mountainCanvas.slopeVal, this.snowCanvas.snowVal);

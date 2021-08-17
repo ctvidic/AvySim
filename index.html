@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Play&display=swap" rel="stylesheet">
+    <img src='./assets/MountainsBackground.png' id=mountainPicture>
     <script src="./dist/main.js"></script>
     <title>AvySim</title>
 </head>
@@ -18,17 +19,19 @@
     <h1>AvySim</h1>
     <div id="fullboard">
         <div id="main-board">
+            <canvas id="weatherbackdrop" width=960 height=540></canvas>
+            <canvas id="backdrop" width=960 height=540></canvas>
             <canvas id="display-canvas" width=960 height=540></canvas>
             <canvas id="snow-canvas" width=960 height=540></canvas> 
+            <canvas id="weather-canvas" width=960 height=540></canvas> 
             <div id="controls">
                 <p>Slope Angle: </p>
                 <input type="range" min = "5" max="90" step="5" class="slider" id="slope" oninput="this.nextElementSibling.value = this.value">
-                <output></output>
                 <p>Snowpack: </p>
                 <input type="range" min="2" max="40" step="2" class="slider" id="snow">
-                <p>Temperature </p>
+                <p>Temperature: </p>
                 <input type="range" min="0" max="50" step="2" class="slider" id="temperature">
-                <p>Windspeed </p>
+                <p>Windspeed: </p>
                 <input type="range" min="2" max="40" step="2" class="slider" id="windspeed">
                 <p>Precipitation: </p>
                 <form>

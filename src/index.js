@@ -1,36 +1,15 @@
 // import { random } from "core-js/core/number";
 import "./styles/index.scss"
+import DisplayMountain from './DisplayMountain.js'
+// import DisplaySnow from './DisplaySnow.js'
+// import TextBox from './textbox.js'
+import DisplayPrecipitation from './DisplayPrecipitation.js'
+import DisplayTemperature from './DisplayTemperature.js'
+import DisplayWeakLayer from './DisplayWeakLayer.js'
+import DisplayWind from './DisplayWind.js'
+
 
 document.addEventListener("DOMContentLoaded", () =>{
-
-    class DisplayMountain{
-        constructor(){
-            this.canvas = document.getElementById("display-canvas")
-            this.ctx = this.canvas.getContext('2d');
-            let slopeSlider = document.getElementById("slope");
-            let slopeValue = slopeSlider.value;
-            this.slopeVal = Number.parseInt(slopeValue);
-            this.drawMountain();
-        }
-
-        drawMountain(snowCanvasBool){
-            if (!snowCanvasBool){
-            let slopeSlider = document.getElementById("slope");
-            let slopeValue = slopeSlider.value;
-            this.slopeVal = Number.parseInt(slopeValue);
-            }
-            let peak = this.canvas.height / 3;
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, 2/3*this.canvas.height);
-            this.ctx.lineTo(this.canvas.width / 5, peak);
-            this.ctx.lineTo(-6*this.slopeVal+this.canvas.width, this.canvas.height);
-            this.ctx.lineTo(0, this.canvas.height);
-            this.ctx.fillStyle = 'rgb(32,32,32)';
-            this.ctx.fill();
-        }
-        
-      
-    }
 
     class DisplaySnow{
         constructor(slopeVal) {
@@ -47,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.xSpeed = 10;
             this.move = false;
             this.end = false;
+            this.moveRoller = false;
+            this.rollerBalls = []
+            // this.createRollerBalls();
             this.drawSnow();
         }
 
@@ -86,9 +68,15 @@ document.addEventListener("DOMContentLoaded", () =>{
                 }
 
                 if (this.snowCords.topRCornerX > this.canvas.width || this.xSpeed === 0){
-                    // this.move = false;
                     this.end = true;
+                    // this.moveRoller = true; 
                 }
+                if (this.xSpeed < 1){
+                    //this.moveRoller = true; 
+                }
+            } else if (this.move && this.xSpeed===10){
+                this.moveRoller = true;
+                this.end = true;
             }
             //Slope Description
             if (slopeVal > 70 && slopeVal <= 75) {
@@ -100,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             }else if (slopeVal < 30){
             }
 
-            
+            let slope = ((2 / 3 * (this.canvas.height)) / (4 / 5 * this.canvas.width - 6 * slopeVal));
             if (!this.move){
             this.ctx.beginPath();
             this.ctx.moveTo(0, 2 / 3 * this.canvas.height - this.snowVal);
@@ -116,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.ctx.fill();
             this.ctx.stroke();
             }else{
+                this.moveRoller = true;
                 this.ctx.beginPath();
                 this.ctx.moveTo(0, 2 / 3 * this.canvas.height - this.snowVal);
                 this.ctx.lineTo(this.canvas.width / 5, peak - this.snowVal);
@@ -125,15 +114,57 @@ document.addEventListener("DOMContentLoaded", () =>{
                 this.ctx.fill();
                 this.ctx.stroke();
                 this.ctx.beginPath();
-                this.ctx.moveTo(this.snowCords.topLCornerX, this.snowCords.topLCornerY);
-                this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - this.snowVal - this.snowCords.round);
+                let slopeDown = 1;
+                // let sloper2 = 0;
+                // for (let i = 0; i < 50; i++) {
+                //     this.ctx.lineTo(this.snowCords.topLCornerX - i, this.snowCords.topLCornerY - i * slope - sloper2);
+                //     sloper2 += .01;
+                // }
+                // this.ctx.moveTo(his.snowCords.topLCornerX-1, this.snowCords.topLCornerY - 1*slope);
+                this.ctx.moveTo(this.snowCords.topLCornerX, this.snowCords.topLCornerY+1);
+                let val = 0;
+                let ychange = 0
+                let yychange = 0;
+                let sloper = .6;
+                let otherVal = this.snowVal*2
+                if(slopeVal > 29 && slopeVal < 60){
+                    for (let i = 0; i<400;i++){
+                        val += 1+ychange;
+                        if (this.snowCords.topLCornerY + val * slope + ychange < (this.canvas.height-this.snowVal * 3)){
+                            this.ctx.lineTo(this.snowCords.topLCornerX + i, this.snowCords.topLCornerY + val * slope + ychange);
+                            if (i % 10 === 0){
+                                    yychange = -.015;
+                            }else{
+                                    yychange = .0015;
+                            }
+                            ychange += yychange;   
+                        }else{
+                            this.ctx.lineTo(this.snowCords.topLCornerX + i, this.canvas.height - this.snowVal-otherVal);
+                            if (otherVal > 1){
+                                otherVal -= sloper;
+                                if (sloper > .15){
+                                sloper -= .01;
+                                }else{
+                                    sloper -=.0001;
+                                }
+                            }else{
+                                otherVal = 1;
+                            }
+                        }
+                        
+                    }
+                }
+                // this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - this.snowVal - this.snowCords.round);
                 this.ctx.lineTo(this.snowCords.topRCornerX, this.canvas.height - this.snowVal);
                 this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
                 this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height);
                 // this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
                 this.ctx.lineTo(this.snowCords.bottomLCornerX, this.snowCords.bottomLCornerY);
                 this.ctx.lineTo(this.canvas.width / 5, peak);
-                this.ctx.lineTo(this.snowCords.topLCornerX, this.snowCords.topLCornerY)
+                // this.ctx.lineTo(this.snowCords.topLCornerX - 3, this.snowCords.topLCornerY - 3 * slope);
+                // this.ctx.lineTo(this.snowCords.topLCornerX - 2, this.snowCords.topLCornerY - 2*slope);
+                // this.ctx.lineTo(this.snowCords.topLCornerX-1, this.snowCords.topLCornerY - 1*slope);
+                this.ctx.lineTo(this.snowCords.topLCornerX, this.snowCords.topLCornerY+1)
                 this.ctx.fillStyle = 'white';
                 this.ctx.fill();
                 this.ctx.stroke();
@@ -153,217 +184,119 @@ document.addEventListener("DOMContentLoaded", () =>{
 
         moveSnow(){
             this.move = true;
-            this.snowCords.topLCornerX += xSpeed;
-            this.snowCords.bottomLCornerX += xSpeed;
-        }
-    }
-
-    class DisplayWind{
-        constructor(snowVal){
-            this.canvas = document.getElementById("display-canvas")
-            this.ctx = this.canvas.getContext('2d');
-            this.snowVal = snowVal;
-            this.windArray = [];
-            this.x=0;
-            this.y=0
-            this.rotation = 0;
-            this.gravity=0;
-            this.changeValue = 0;
-            this.sizeChange = 1;
+            // this.snowCords.topLCornerX += xSpeed;
+            // this.snowCords.bottomLCornerX += xSpeed;
         }
 
-        drawWind(snowvalue,tempValue){
-            this.snowVal = snowvalue
-            let windSlider = document.getElementById("windspeed");
-            this.windValue = Number.parseInt(windSlider.value);
-            // let peak = this.canvas.height / 3;
-            // for(let i =0;i<(this.windValue/2);i++){
-            //     let y = Math.random()*100;
-            //     this.ctx.beginPath();
-            //     this.ctx.moveTo(this.x,y);
-            //     this.ctx.lineTo(this.windValue*5 + this.x, y)
-            //     this.ctx.stroke();
-            // }
-            // this.x+=this.windValue/10;
-
-            //old four lines
-
-            
-            // if (this.windValue > 0){
-            //     let y = Math.random() * 4-7
-            //     this.ctx.moveTo(0, 50);
-            //     this.ctx.lineTo(150 + this.windValue / 2, 50 + y * this.windValue / 20);
-            //     this.ctx.moveTo(0, 100);
-            //     this.ctx.lineTo(100 + this.windValue / 2, 100+y*this.windValue/20);
-            //     this.ctx.moveTo(0, 150);
-            //     this.ctx.lineTo(50+this.windValue/1.5, 150+y*this.windValue/20);
-            //     this.ctx.moveTo(0, 200);
-            //     this.ctx.lineTo(this.windValue, 200+y*this.windValue/20);
-            //     this.ctx.stroke();
-            // }
-
-            for (let i=0;i<this.windArray.length;i++){
-                let val  = this.windArray[i]
-                // this.ctx.moveTo(val.x1,val.y1);
-                this.ctx.beginPath()
-                this.ctx.arc (
-                    val.x1,
-                    val.y1,
-                    val.r,
-                    val.start,
-                    val.angle,
-                    false
+        moveRollerBalls(){
+            if (this.moveRoller){
+                for(let i=0;i<this.rollerBalls.length;i++){
+                    let roller = this.rollerBalls[i];
+                    this.ctx.beginPath();
+                    this.ctx.arc(
+                        roller.x,
+                        roller.y,
+                        roller.r,
+                        roller.start,
+                        roller.angle,
+                        false
                     )
-                this.ctx.stroke();
-                val.x1 += 5 * Math.random()*this.windValue/40;
-                val.y1 -= 3 * Math.random() - val.gravity;
-                val.r -= .01
-                val.start += .1 * Math.PI
-                val.angle += .1 * Math.PI
-                val.gravity += .02
-                // if (val.r < .01){
-                //     debugger;
-                //     this.windArray[i] = {
-                //         x1: this.canvas.width / 5,
-                //         y1: this.canvas.height / 3 - this.snowVal,
-                //         r: 5,
-                //         start: .5 * Math.PI,
-                //         angle: 1 * Math.PI,
-                //         gravity: 0
-                //     }
-                // }
-            }
-            if (this.windValue > 25 && this.windArray.length < 100 && tempValue < 35){
-                    this.windArray.push({
-                        x1: this.canvas.width / 5 + Math.random()*10 -15,
-                        y1: this.canvas.height / 3 - this.snowVal + Math.random()*10,
-                        r: 5,
-                        start: .5 * Math.PI,
-                        angle: 1 * Math.PI,
-                        gravity: 0
-                    })
+                    // this.ctx.stroke();
+                    this.ctx.fill();
+
+                    roller.x += 1
                 }
-            else {
-                this.windArray.shift()
             }
-
             
-            // this.x += this.windValue/3
-
-            // if (this.windValue * 5 + this.x > 1160){
-            //     this.x = 0;
-            // }
-
+            
         }
 
-        
-    }
+        createRollerBalls(){
 
-
-    class DisplayPrecipitation{
-        constructor() {
-            this.canvas = document.getElementById("display-canvas")
-            this.ctx = this.canvas.getContext('2d');
-            this.particlesArray=[];
-            this.createSnowflakes();
-        }
-        drawPrec(windValue,tempValue) {
-            let precValue = document.getElementById("prec-true").checked;
-                for(let i = 0; i<(this.particlesArray.length);i++){
-                    if (precValue && tempValue <= 35){
-                        this.ctx.beginPath();
-                        this.ctx.arc(
-                            this.particlesArray[i].x,
-                            this.particlesArray[i].y,
-                            this.particlesArray[i].radius,
-                            0,
-                            Math.PI*2,
-                            false
-                        )
-                        this.ctx.fill();
-                        let randCap = Math.random()*50 + 110
-                        if (this.particlesArray[i].x < this.canvas.width / 5 && this.particlesArray[i].y > randCap && windValue > 20){
-                        
-                            this.particlesArray[i].y -= this.particlesArray[i].speedY;
-                            this.particlesArray[i].x += (windValue) / 20;
-                        }else{
-                        this.particlesArray[i].y += this.particlesArray[i].speedY;
-                        this.particlesArray[i].x += (windValue)/20;
-                        }
-                    }else if(precValue && tempValue > 35){
-                        this.ctx.beginPath();
-                        this.ctx.moveTo(this.particlesArray[i].x, this.particlesArray[i].y)
-                        this.ctx.lineTo(this.particlesArray[i].x, this.particlesArray[i].y+8)
-                        this.ctx.stroke();
-                        this.particlesArray[i].y += 5
-                        this.particlesArray[i].x += (windValue) / 50;
-
-                    }
-                    if (this.particlesArray[i].y > this.canvas.height) {
-                        this.particlesArray[i].y = Math.random(0, 10);
-                    }
-                    if (this.particlesArray[i].x > this.canvas.width) {
-                        this.particlesArray[i].x = Math.random() * this.canvas.width;
-                    }
-                //  this.moveSnowflakes();
-            }
-        }
-
-        createSnowflakes(){
-            for(let i =0; i<300;i++){
-                this.particlesArray.push({
-                    x: Math.random() * this.canvas.width,
-                    y: Math.random() * this.canvas.height,
-                    speedY: 1,
-                    speedX: 2,
-                    radius: Math.random()+1
+            for(let i = 0; i<100;i++){
+                this.rollerBalls.push({
+                    x: this.canvas.width / 5 + 5,
+                    y: this.canvas.height / 3,
+                    r: 10,
+                    start: 0,
+                    angle: 2 * Math.PI,
                 })
+
             }
         }
-
-        // moveSnowflakes(){
-        //     debugger;
-        //     for(let i = 0;i<this.particlesArray.length;i++){
-        //         this.particlesArray[i] += 0;
-        //         this.particlesArray[i] += 0;
-        //     }
-        // }
     }
 
-    class DisplayTemperature{
-        constructor(){
-            this.canvas = document.getElementById("display-canvas")
-            this.ctx = this.canvas.getContext('2d');
-            this.tempSlider = document.getElementById("temperature");
-            this.tempValue = Number.parseInt(this.tempSlider.value);
-            this.drawTemp();
-        }
-        drawTemp(){ 
-            this.tempValue = Number.parseInt(this.tempSlider.value);
-        }
-    }
+    // class DisplayWind{
+    //     constructor(snowVal){
+    //         this.canvas = document.getElementById("display-canvas")
+    //         this.ctx = this.canvas.getContext('2d');
+    //         this.snowVal = snowVal;
+    //         this.windArray = [];
+    //         this.x=0;
+    //         this.y=0
+    //         this.rotation = 0;
+    //         this.gravity=0;
+    //         this.changeValue = 0;
+    //         this.sizeChange = 1;
+    //     }
 
-    class DisplayWeakLayer{
-        constructor() {
-            this.canvas = document.getElementById("display-canvas")
-            this.ctx = this.canvas.getContext('2d');
-            this.weakLayer = false;
-            this.drawLayer();
-        }
-        drawLayer(slopeVal, snowVal) {
-            let peak = this.canvas.height / 3;
-            let weakValue = document.getElementById("weak-true");
-            this.weakLayer = weakValue.checked;
-            if (this.weakLayer === true){
-                this.ctx.moveTo(this.canvas.width / 5, peak - (snowVal/2));
-                this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - (snowVal / 2));
-                // this.ctx.lineTo(-6 * this.slopeVal + this.canvas.width, this.canvas.height)
-                this.ctx.stroke();
-            }
+    //     drawWind(snowvalue,tempValue){
+    //         this.snowVal = snowvalue
+    //         let windSlider = document.getElementById("windspeed");
+    //         this.windValue = Number.parseInt(windSlider.value);
+       
+    //         //old four lines
 
 
-        }
-    }
+    //         // if (this.windValue > 0){
+    //         //     let y = Math.random() * 4-7
+    //         //     this.ctx.moveTo(0, 50);
+    //         //     this.ctx.lineTo(150 + this.windValue / 2, 50 + y * this.windValue / 20);
+    //         //     this.ctx.moveTo(0, 100);
+    //         //     this.ctx.lineTo(100 + this.windValue / 2, 100+y*this.windValue/20);
+    //         //     this.ctx.moveTo(0, 150);
+    //         //     this.ctx.lineTo(50+this.windValue/1.5, 150+y*this.windValue/20);
+    //         //     this.ctx.moveTo(0, 200);
+    //         //     this.ctx.lineTo(this.windValue, 200+y*this.windValue/20);
+    //         //     this.ctx.stroke();
+    //         // }
+
+    //         for (let i=0;i<this.windArray.length;i++){
+    //             let val  = this.windArray[i]
+    //             // this.ctx.moveTo(val.x1,val.y1);
+    //             this.ctx.beginPath()
+    //             this.ctx.arc (
+    //                 val.x1,
+    //                 val.y1,
+    //                 val.r,
+    //                 val.start,
+    //                 val.angle,
+    //                 false
+    //                 )
+    //             this.ctx.stroke();
+    //             val.x1 += 5 * Math.random()*this.windValue/40;
+    //             val.y1 -= 3 * Math.random() - val.gravity;
+    //             val.r -= .01
+    //             val.start += .1 * Math.PI
+    //             val.angle += .1 * Math.PI
+    //             val.gravity += .02
+    //         }
+    //         if (this.windValue > 25 && this.windArray.length < 100 && tempValue < 35){
+    //                 this.windArray.push({
+    //                     x1: this.canvas.width / 5 + Math.random()*10 -15,
+    //                     y1: this.canvas.height / 3 - this.snowVal + Math.random()*10,
+    //                     r: 5,
+    //                     start: .5 * Math.PI,
+    //                     angle: 1 * Math.PI,
+    //                     gravity: 0
+    //                 })
+    //             }
+    //         else {
+    //             this.windArray.shift()
+    //         }
+
+    //     }
+// }
 
     class TextBox{
         constructor(){
@@ -449,6 +382,8 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.ctx = this.canvas.getContext('2d');
             this.snowcanvas = document.getElementById("snow-canvas")
             this.snowctx = this.snowcanvas.getContext('2d');
+            this.weathercanvas = document.getElementById("weather-canvas")
+            this.weatherctx = this.weathercanvas.getContext('2d');
             this.animate = this.animate.bind(this)
             
             this.tempCanvas = new DisplayTemperature;
@@ -462,6 +397,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         animate(){
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.snowctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.weatherctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.mountainCanvas.drawMountain(this.snowCanvas.end);
             this.windCanvas.drawWind(this.snowCanvas.snowVal, this.tempCanvas.tempValue);
             this.tempCanvas.drawTemp();
@@ -471,6 +407,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             const initiate = document.getElementById("submit")
             let snowCanvas = this.snowCanvas;
             this.snowCanvas.drawSnow(this.mountainCanvas.slopeVal);
+            this.snowCanvas.moveRollerBalls();
             initiate.onclick = function (){
                 snowCanvas.moveSnow();
             }

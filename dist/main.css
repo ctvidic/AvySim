@@ -16,6 +16,10 @@ html {
   color: inherit;
 }
 
+body {
+  background-image: linear-gradient(Azure, LightCyan);
+}
+
 h1 {
   font-family: "Play", sans-serif;
   font-size: 80px;
@@ -31,7 +35,11 @@ h1 {
 #snow-canvas {
   position: absolute;
   z-index: 2;
-  border: 1px solid black;
+  border: 2px solid black;
+}
+
+#canvas {
+  background-color: white;
 }
 
 #fullboard {

@@ -24,6 +24,9 @@ class DisplayMountain {
             this.slopeVal = Number.parseInt(slopeValue);
         }
         let peak = this.canvas.height / 3;
+        let midnode = peak + 160 + this.slope * 15;
+        let midnodex = this.canvas.width / 5 + 80+(this.slope*10);
+
         this.ctx.beginPath();
         this.ctx.moveTo(0, 2 / 3 * this.canvas.height);
         this.ctx.lineTo(this.canvas.width / 5, peak);
@@ -61,7 +64,7 @@ class DisplayMountain {
 
         this.ctx.beginPath();
         this.ctx.moveTo(this.canvas.width / 5 - 40, peak + 240);
-        this.ctx.lineTo(this.canvas.width / 5 + 80, peak + 160);
+        this.ctx.lineTo(midnodex, midnode);
         this.ctx.lineTo(this.canvas.width / 5 + 4, peak + 90);
         this.ctx.closePath();
         this.ctx.fillStyle = '#808080'
@@ -69,7 +72,7 @@ class DisplayMountain {
 
         this.ctx.beginPath();
         this.ctx.moveTo(this.canvas.width / 5 + 4, peak + 90);
-        this.ctx.lineTo(this.canvas.width / 5 + 80, peak + 160);
+        this.ctx.lineTo(midnodex, midnode);
         this.ctx.lineTo(this.canvas.width / 5 + 80 / this.slope, peak + (80));
         this.ctx.closePath();
         this.ctx.fillStyle = '#696969'
@@ -78,7 +81,7 @@ class DisplayMountain {
         this.ctx.beginPath();
         this.ctx.moveTo(this.canvas.width / 5 + 80 / this.slope, peak + (80));
         this.ctx.lineTo(this.canvas.width / 5 + 240, peak + (240 * this.slope));
-        this.ctx.lineTo(this.canvas.width / 5 + 80, peak + 160);
+        this.ctx.lineTo(midnodex, midnode);
         this.ctx.closePath();
         this.ctx.fillStyle = '#808080'
         this.ctx.fill();
@@ -102,7 +105,7 @@ class DisplayMountain {
 
         this.ctx.beginPath();
         this.ctx.moveTo(this.canvas.width / 5 - 40, peak + 240);
-        this.ctx.lineTo(this.canvas.width / 5 + 80, peak + 160);
+        this.ctx.lineTo(midnodex,midnode);
         this.ctx.lineTo(this.canvas.width / 5 + 40, this.canvas.height)
         this.ctx.closePath();
         this.ctx.fillStyle = '#7a7a7a';
@@ -110,7 +113,7 @@ class DisplayMountain {
 
         this.ctx.beginPath();
         this.ctx.moveTo(this.canvas.width / 5 + 40, this.canvas.height);
-        this.ctx.lineTo(this.canvas.width / 5 + 80, peak + 160);
+        this.ctx.lineTo(midnodex, midnode);
         this.ctx.lineTo(this.canvas.width / 5 + 300-this.slopeVal*1.5, this.canvas.height)
         this.ctx.closePath();
         this.ctx.fillStyle = '#636363';
@@ -120,7 +123,7 @@ class DisplayMountain {
         this.ctx.beginPath();
         this.ctx.moveTo(this.canvas.width / 5 + 300 - this.slopeVal * 1.5, this.canvas.height);
         this.ctx.lineTo(this.canvas.width / 5 + 240, peak + (240 * this.slope));
-        this.ctx.lineTo(this.canvas.width / 5 + 80, peak + 160)
+        this.ctx.lineTo(midnodex, midnode);
         this.ctx.closePath();
         this.ctx.fillStyle = '#737373';
         this.ctx.fill();

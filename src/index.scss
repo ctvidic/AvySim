@@ -83,10 +83,12 @@ h1{
 #controls{
     font-family: 'Play', sans-serif;
     display: flex;
-    width: 200px;
+    width: 240px;
     justify-content: center;
     flex-direction: column;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
     background: azure;
 
 }
@@ -97,16 +99,17 @@ h1{
 
 #description{
     border: 1px solid black;
-    width: 1160px;
-    height: 200px;
+    width: 1200px;
+    height: 180px;
     display:flex;
     flex-direction: row;
     justify-content: center;
     background:azure;
 }
 #textdescription{
-    width: 1160px;
-    height: 200px;
+    width: 1200px;
+    height: 180px;
+    
     // border: 1px solid black;
 }
 
@@ -115,9 +118,9 @@ h1{
 }
 
 #textdescription img{
-    width: 199px;
-    height: 199px;
-    border: 1px solid black;
+    width: 239px;
+    height: 179px;
+    border-left: 1px solid black;
 }
 /* #photodescription{
     width: 200px;
@@ -131,36 +134,47 @@ h1{
     list-style-type: circle;
     display: none;
     font-family: 'Play', sans-serif;
+    margin-left:10px;
 }
 
 #wayoutofrange{
     list-style-type: circle;
     display: none;
     font-family: 'Play', sans-serif;
+    margin-left:10px;
 }
 #lowsnow{
     list-style-type: circle;
     display: none;
     font-family: 'Play', sans-serif;
+    margin-left:10px;
 }
 #windloaded{
     display: none;
     font-family: 'Play', sans-serif;
+    margin-left:10px;
+}
+
+#windloadedtext{
+    vertical-align: middle;
 }
 
 #wet{
     display: none;
     font-family: 'Play', sans-serif;
+    margin-left:10px;
 }
 
 #persistent{
     display: none;
     font-family: 'Play', sans-serif;
+    margin-left:10px;
 }
 
 #precipitation{
     display: none;
-        font-family: 'Play', sans-serif;
+    font-family: 'Play', sans-serif;
+    margin-left:10px;
 
 }
 
@@ -197,3 +211,166 @@ img {
     display: none;
 }
 
+#aboutlinks{
+    width: 1200px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#controls p{
+    margin-left: 10px;
+}
+
+#controls form{
+    margin-left: 10px;
+}
+
+#controls .slider{
+    margin-left: 10px;
+}
+
+button{
+    font-family: 'Play', sans-serif;
+}
+
+#slopebubble{
+    
+}
+
+#snowbubble{
+    
+
+}
+
+#tempbubble{
+   
+
+}
+
+#instructions{
+    font-family: 'Play', sans-serif;
+    background-color: azure;
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 20px;
+    padding: 8px;
+}
+
+#instructions:hover{
+        transform: scaleX(1.1);
+        cursor: pointer;
+}
+
+#myBtn:hover{
+        cursor: pointer;
+}
+#aboutme{
+    font-family: 'Play', sans-serif;
+    background-color: azure;
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 20px;
+    padding: 8px;
+}
+
+#aboutme:hover{
+        transform: scaleX(1.1);
+
+}
+
+#github{
+    font-family: 'Play', sans-serif;
+    background-color: azure;
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 20px;
+    padding: 8px;
+}
+
+#linkedin{
+    font-family: 'Play', sans-serif;
+    background-color: azure;
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size: 20px;
+    padding: 8px;
+}
+
+#github img{
+    height: 30px;
+    width: 30px;
+}
+
+#github:hover{
+    transform: scaleX(1.1);
+}
+
+#linkedin img{
+    height: 30px;
+    width: 30px;
+}
+
+#linkedin:hover{
+    transform: scaleX(1.1);
+}
+
+
+
+
+
+
+
+//modal
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  border: 1px solid black;
+  font-size: 24px;
+  font-family: 'Play', sans-serif;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid black;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#instructions button{
+  border: none;
+  color: black;
+ background-color: azure; 
+  text-align: center;
+  font-size: 20px;
+}

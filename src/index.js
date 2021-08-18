@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
 
         drawSnow(slopeVal) {
+            let weakValue = document.getElementById("weak-true").checked;
             this.ctx = this.canvas.getContext('2d');
             let peak = this.canvas.height / 3;
             if (!this.move){
@@ -103,6 +104,16 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.ctx.fillStyle ='white';
             this.ctx.fill();
             this.ctx.stroke();
+            
+            if(weakValue){
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.canvas.width / 5, peak - this.snowVal/2);
+                this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - this.snowVal/2);
+                this.ctx.setLineDash([5, 15]);
+                this.ctx.stroke();
+                this.ctx.setLineDash([]);
+            }
+
             }else{
                 this.moveRoller = true;
                 this.ctx.beginPath();
@@ -387,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.animate = this.animate.bind(this)
             
             this.tempCanvas = new DisplayTemperature;
-            this.weakLayer = new DisplayWeakLayer;
+            // this.weakLayer = new DisplayWeakLayer;
             this.snowflakes = new DisplayPrecipitation;
             this.textbox = new TextBox;
             this.mountainCanvas = new DisplayMountain;
@@ -402,7 +413,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.windCanvas.drawWind(this.snowCanvas.snowVal, this.tempCanvas.tempValue);
             this.tempCanvas.drawTemp();
             this.textbox.createText();
-            this.weakLayer.drawLayer(this.mountainCanvas.slopeVal, this.snowCanvas.snowVal);
+            // this.weakLayer.drawLayer(this.mountainCanvas.slopeVal, this.snowCanvas.snowVal);
             this.snowflakes.drawPrec(this.windCanvas.windValue, this.tempCanvas.tempValue);
             const initiate = document.getElementById("submit")
             let snowCanvas = this.snowCanvas;
@@ -427,7 +438,23 @@ document.addEventListener("DOMContentLoaded", () =>{
         resetCanvas.animate();
     }
 
-    
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
     // let mountainCanvas = new displayMountain;
     // mountainCanvas.animate();
 

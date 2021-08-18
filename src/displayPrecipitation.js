@@ -44,10 +44,10 @@ class DisplayPrecipitation{
                         if (this.particlesArray[i].x < this.canvas.width / 5 && this.particlesArray[i].y > randCap && windValue > 20){
                         
                             this.particlesArray[i].y -= this.particlesArray[i].speedY;
-                            this.particlesArray[i].x += (windValue) / 40 + Math.floor(Math.random()*2);
+                            this.particlesArray[i].x += (windValue) / 40;
                         }else{
                         this.particlesArray[i].y += this.particlesArray[i].speedY;
-                            this.particlesArray[i].x += (windValue) / 40 + Math.floor(Math.random() *2);
+                            this.particlesArray[i].x += (windValue) / 40;
                         }
                     }else if(precValue && tempValue > 35){
                         weatherbackdrop.style.visibility = 'visible';
@@ -75,7 +75,7 @@ class DisplayPrecipitation{
         }
 
         createSnowflakes(){
-            for(let i =0; i<300;i++){
+            for(let i =0; i<150;i++){
                 this.particlesArray.push({
                     x: Math.random() * this.canvas.width,
                     y: Math.random() * this.canvas.height,

@@ -58,7 +58,7 @@ export default class DisplayWind {
             this.windArray.push({
                 x1: this.canvas.width / 5 + Math.random() * 10 - 15,
                 y1: this.canvas.height / 3 - this.snowVal + Math.random() * 10,
-                r: 5,
+                r: 9,
                 start: .5 * Math.PI,
                 angle: 1 * Math.PI,
                 gravity: 0

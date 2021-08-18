@@ -12,6 +12,19 @@ class DisplayPrecipitation{
             let precValue = document.getElementById("prec-true").checked;
                 if (!precValue){
                     weatherbackdrop.style.visibility = 'hidden';
+                    this.ctx.beginPath();
+                    this.ctx.arc(
+                        this.canvas.width - 100,
+                        100,
+                        30,
+                        0,
+                        Math.PI*2,
+                        false
+                    )
+                    this.ctx.shadowColor = '#feca1d';
+                    this.ctx.shadowBlur = Math.random()*(tempValue/20) + tempValue;
+                    this.ctx.fillStyle = '#feca1d';
+                    this.ctx.fill();
                 }
                 for(let i = 0; i<(this.particlesArray.length);i++){
                     if (precValue && tempValue <= 35){

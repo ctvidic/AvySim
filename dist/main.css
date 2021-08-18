@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  background: #eff5f5;
+  background: #d9dfdf;
 }
 
 h1 {
@@ -67,7 +67,7 @@ h1 {
 }
 
 #canvas {
-  background-color: gray;
+  background-color: #5c5c5c;
 }
 
 #fullboard {
@@ -84,6 +84,7 @@ h1 {
   justify-content: center;
   flex-direction: column;
   border: 1px solid black;
+  background: azure;
 }
 
 #display-canvas {
@@ -103,7 +104,6 @@ h1 {
 #textdescription {
   width: 1160px;
   height: 200px;
-  border: 1px solid black;
 }
 
 #windloaded {
@@ -187,7 +187,7 @@ h1 {
 }
 
 img {
-  border-left: 2px black;
+  border-left: 1px black;
 }
 
 #mountainPicture {

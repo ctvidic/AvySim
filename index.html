@@ -17,7 +17,25 @@
 
 <body>
     <h1>AvySim</h1>
+   
     <div id="fullboard">
+        <div id="aboutlinks" width=1200 height=30>
+            
+            <div id="instructions">
+                <button id="myBtn">Instructions</button>
+            </div>
+            <!-- <div id="aboutme">
+                About Me
+            </div> -->
+            <div id="github">
+                <a href="https://github.com/ctvidic"><img src="./assets/github.png"></a>
+            </div>
+            <div id="linkedin">
+                <a href="https://www.linkedin.com/in/christopher-vidic/"><img src="./assets/linkedin.png"></a>
+            </div>
+
+        </div>
+        
         <div id="main-board">
             <canvas id="weatherbackdrop" width=960 height=540></canvas>
             <canvas id="backdrop" width=960 height=540></canvas>
@@ -25,12 +43,18 @@
             <canvas id="snow-canvas" width=960 height=540></canvas> 
             <canvas id="weather-canvas" width=960 height=540></canvas> 
             <div id="controls">
+                <div id="slopebubble">
                 <p>Slope Angle: </p>
-                <input type="range" min = "5" max="90" step="5" class="slider" id="slope" oninput="this.nextElementSibling.value = this.value">
+                <input type="range" min = "5" max="90" step="5" class="slider" id="slope">
+                </div>
+                <div id="snowbubble">
                 <p>Snowpack: </p>
                 <input type="range" min="2" max="40" step="2" class="slider" id="snow">
+                </div>
+                <div id="tempbubble">
                 <p>Temperature: </p>
                 <input type="range" min="0" max="50" step="2" class="slider" id="temperature">
+                </div>
                 <p>Windspeed: </p>
                 <input type="range" min="2" max="40" step="2" class="slider" id="windspeed">
                 <p>Precipitation: </p>
@@ -114,6 +138,21 @@
             
             
         </div>
+    </div>
+    <div id="myModal" class="modal">
+    
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <b>AvySim</b> is a user input based avalanche simulator. Interact with the weather/terrain controllers on the right to modify conditions. If an avalanche is possible, click the <i>Start Avalanche</i> button to see the animation. Press the <i>Reset</i> button to reset slope and snow conditions. Information about the avalanche type will be displayed in the description box below. 
+            <br>
+            <br>
+            Avalanche information presented is based off specifications and generalizations from the Colorado Avalanche Information Center. If you would like more information on these types, feel free to check out the <a href="https://www.avalanche.state.co.us/forecasts/help/avalanche-problems/">CAIC website.</a>
+            <br>
+            <br>
+            <i>Disclaimer: AvySim is a generalization of avalanche conditions and should never be used over local avalanche conditions presented by your local avalance center.</i>
+        </div>
+    
     </div>
 
     

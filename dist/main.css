@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  background-image: linear-gradient(Azure, LightCyan);
+  background: #d9dfdf;
 }
 
 h1 {
@@ -30,16 +30,44 @@ h1 {
 #main-board {
   display: flex;
   justify-content: flex-start;
+  background-image: linear-gradient(#acdef1, LightCyan);
+}
+
+#weatherbackdrop {
+  position: absolute;
+  visibility: hidden;
+  z-index: 0;
+  display: flex;
+  background-image: linear-gradient(#3e4041, LightCyan);
 }
 
 #snow-canvas {
   position: absolute;
-  z-index: 2;
-  border: 2px solid black;
+  z-index: 5;
+  border: 1px solid black;
+}
+
+#weather-canvas {
+  position: absolute;
+  z-index: 3;
+  border: 1px solid black;
+}
+
+#display-canvas {
+  z-index: 4;
+  border: 1px solid black;
+}
+
+#backdrop {
+  position: absolute;
+  z-index: 1;
+  background: no-repeat url("../assets/MountainsBackground.png");
+  background-size: contain;
+  background-position: bottom;
 }
 
 #canvas {
-  background-color: white;
+  background-color: #5c5c5c;
 }
 
 #fullboard {
@@ -56,6 +84,7 @@ h1 {
   justify-content: center;
   flex-direction: column;
   border: 1px solid black;
+  background: azure;
 }
 
 #display-canvas {
@@ -69,12 +98,12 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background: azure;
 }
 
 #textdescription {
   width: 1160px;
   height: 200px;
-  border: 1px solid black;
 }
 
 #windloaded {
@@ -155,4 +184,12 @@ h1 {
   height: 25px;
   background: grey;
   cursor: pointer;
+}
+
+img {
+  border-left: 1px black;
+}
+
+#mountainPicture {
+  display: none;
 }

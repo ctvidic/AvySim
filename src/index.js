@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.moveRoller = false;
             this.rollerBalls = [];
             this.positionMatrix = [];
+            this.realSlopeVal = slopeVal;
+            this.resetball = true;
             this.createRollerBalls();
             this.drawSnow();
         }
@@ -81,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 this.end = true;
             }
             //Slope Description
-            if (slopeVal > 30 && slopeVal <= 75) {
+            if (slopeVal > 60 && slopeVal <= 75) {
                 this.snowVal /= 1.5;
             }else if (slopeVal > 75 && slopeVal <= 80) {
                 this.snowVal /= 2;
@@ -89,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 this.snowVal /= 2.5;
             }else if (slopeVal < 30){
             }
-
+            this.realSlopeVal = slopeVal
             let slope = ((2 / 3 * (this.canvas.height)) / (4 / 5 * this.canvas.width - 6 * slopeVal));
             if (!this.move){
             this.ctx.beginPath();
@@ -139,7 +141,8 @@ document.addEventListener("DOMContentLoaded", () =>{
                 let yychange = 0;
                 let sloper = .6;
                 let otherVal = this.snowVal*2
-                if(slopeVal > 29 && slopeVal < 75){
+                
+                if(slopeVal >= 30 && slopeVal < 75 && this.snowVal > 10){
                     let numba = 0;
                     if (slopeVal < 75){
                         numba = 400;
@@ -170,20 +173,31 @@ document.addEventListener("DOMContentLoaded", () =>{
                             }else{
                                 otherVal = 1;
                             }
+                            
                         }
                         
                     }
                 }
                 
-                for (let i = 0; i< 600;i++){
-                        this.positionMatrix.push(500+i, this.canvas.height - (this.snowVal*1.6))
+                for (let i = 0; i< 300;i++){
+                        this.positionMatrix.push(500+i, this.canvas.height - (this.snowVal*2))
+                }
+                for (let i = 0; i <200; i++) {
+                    this.positionMatrix.push(800 + i, this.canvas.height - (this.snowVal * 1))
                 }
                 // this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - this.snowVal - this.snowCords.round);
+                if (this.snowVal>10){
                 this.ctx.lineTo(this.snowCords.topRCornerX, this.canvas.height - this.snowVal);
                 this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
                 this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height);
+                
                 // this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
                 this.ctx.lineTo(this.snowCords.bottomLCornerX, this.snowCords.bottomLCornerY);
+                }else{
+                    this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - this.snowVal*2)
+                    this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height)
+
+                }
                 this.ctx.lineTo(this.canvas.width / 5, peak);
                 // this.ctx.lineTo(this.snowCords.topLCornerX - 3, this.snowCords.topLCornerY - 3 * slope);
                 // this.ctx.lineTo(this.snowCords.topLCornerX - 2, this.snowCords.topLCornerY - 2*slope);
@@ -213,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
 
         moveRollerBalls(){
-            if (this.moveRoller){
+            if (this.moveRoller && (this.realSlopeVal >= 30 && this.realSlopeVal < 75) && this.snowVal>10){
                 for(let i=0;i<this.rollerBalls.length;i++){
                     let roller = this.rollerBalls[i];
                     this.ctx.beginPath();
@@ -230,10 +244,9 @@ document.addEventListener("DOMContentLoaded", () =>{
                     this.ctx.fill();
                     roller.xexp += .03;
                     roller.x += roller.xexp
-                    if (roller.x > this.canvas.width){
-                        this.rollerBalls.pop()
-                    }
-                    debugger;
+                    // if (roller.x > this.canvas.width){
+                    //     // this.rollerBalls.pop()
+                    // }
                     let booli = this.positionMatrix.indexOf(Math.floor(roller.x))
                     let booly = 0
                     if (booli > 0){
@@ -247,17 +260,24 @@ document.addEventListener("DOMContentLoaded", () =>{
                     }else if (roller.y > (booly + 3)|| roller.bouncey === false){
                         roller.bouncey = false;
                         roller.y -= roller.gravity;
-                        roller.gravity -= 1;
+                        roller.gravity -= 1.5;
                         roller.x += 2
                     }
+
 
                    
                 
                 }
                 
-                if (this.rollerBalls.length < 30) {
+                if (this.rollerBalls.length < 30 && this.resetball) {
                     this.createRollerBalls();
                 }
+                if (this.rollerBalls.length > 0){
+                if (this.rollerBalls[0].x > this.canvas.width){
+                    this.resetRollerBalls();
+                    this.resetball = false;
+                }
+            }
             }
            
             
@@ -278,6 +298,12 @@ document.addEventListener("DOMContentLoaded", () =>{
                     xexp: 2
                 })
 
+            }
+        }
+
+        resetRollerBalls(){
+            for(let i=0;i<this.rollerBalls.length;i++){
+                this.rollerBalls.pop();
             }
         }
     }
@@ -480,6 +506,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     const reset = document.getElementById("reset");
     reset.onclick = function(){
         let resetCanvas = new DisplayCanvas;
+
         resetCanvas.animate();
     }
 

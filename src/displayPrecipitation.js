@@ -7,6 +7,8 @@ class DisplayPrecipitation{
             this.ctx = this.canvas.getContext('2d');
             this.particlesArray=[];
             this.createSnowflakes();
+            this.start = 0;
+            // this.end = 
         }
         drawPrec(windValue,tempValue) {
             let precValue = document.getElementById("prec-true").checked;
@@ -25,6 +27,8 @@ class DisplayPrecipitation{
                     this.ctx.shadowBlur = Math.random()*(tempValue/20) + tempValue;
                     this.ctx.fillStyle = '#feca1d';
                     this.ctx.fill();
+
+                    
                 }
                 for(let i = 0; i<(this.particlesArray.length);i++){
                     if (precValue && tempValue <= 35){

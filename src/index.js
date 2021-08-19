@@ -308,77 +308,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
     }
 
-    // class DisplayWind{
-    //     constructor(snowVal){
-    //         this.canvas = document.getElementById("display-canvas")
-    //         this.ctx = this.canvas.getContext('2d');
-    //         this.snowVal = snowVal;
-    //         this.windArray = [];
-    //         this.x=0;
-    //         this.y=0
-    //         this.rotation = 0;
-    //         this.gravity=0;
-    //         this.changeValue = 0;
-    //         this.sizeChange = 1;
-    //     }
-
-    //     drawWind(snowvalue,tempValue){
-    //         this.snowVal = snowvalue
-    //         let windSlider = document.getElementById("windspeed");
-    //         this.windValue = Number.parseInt(windSlider.value);
-       
-    //         //old four lines
-
-
-    //         // if (this.windValue > 0){
-    //         //     let y = Math.random() * 4-7
-    //         //     this.ctx.moveTo(0, 50);
-    //         //     this.ctx.lineTo(150 + this.windValue / 2, 50 + y * this.windValue / 20);
-    //         //     this.ctx.moveTo(0, 100);
-    //         //     this.ctx.lineTo(100 + this.windValue / 2, 100+y*this.windValue/20);
-    //         //     this.ctx.moveTo(0, 150);
-    //         //     this.ctx.lineTo(50+this.windValue/1.5, 150+y*this.windValue/20);
-    //         //     this.ctx.moveTo(0, 200);
-    //         //     this.ctx.lineTo(this.windValue, 200+y*this.windValue/20);
-    //         //     this.ctx.stroke();
-    //         // }
-
-    //         for (let i=0;i<this.windArray.length;i++){
-    //             let val  = this.windArray[i]
-    //             // this.ctx.moveTo(val.x1,val.y1);
-    //             this.ctx.beginPath()
-    //             this.ctx.arc (
-    //                 val.x1,
-    //                 val.y1,
-    //                 val.r,
-    //                 val.start,
-    //                 val.angle,
-    //                 false
-    //                 )
-    //             this.ctx.stroke();
-    //             val.x1 += 5 * Math.random()*this.windValue/40;
-    //             val.y1 -= 3 * Math.random() - val.gravity;
-    //             val.r -= .01
-    //             val.start += .1 * Math.PI
-    //             val.angle += .1 * Math.PI
-    //             val.gravity += .02
-    //         }
-    //         if (this.windValue > 25 && this.windArray.length < 100 && tempValue < 35){
-    //                 this.windArray.push({
-    //                     x1: this.canvas.width / 5 + Math.random()*10 -15,
-    //                     y1: this.canvas.height / 3 - this.snowVal + Math.random()*10,
-    //                     r: 5,
-    //                     start: .5 * Math.PI,
-    //                     angle: 1 * Math.PI,
-    //                     gravity: 0
-    //                 })
-    //             }
-    //         else {
-    //             this.windArray.shift()
-    //         }
-
-    //     }
-// }
+  
 
     class TextBox{
         constructor(){
@@ -401,13 +331,14 @@ document.addEventListener("DOMContentLoaded", () =>{
             let weakLayer = weakValue.checked;
             let precValue = document.getElementById("prec-true").checked;
 
-            if (slopeValue < 30 || slopeValue > 75){
+            if (slopeValue < 30 || slopeValue >= 75){
                 outofrange.style.display = "flex";
                 lowsnow.style.display = "none";
                 wet.style.display = "none";
                 persistent.style.display = "none";
                 precipitation.style.display = "none";
                 windloaded.style.display = "none";
+                dryloose.style.display = "none";
             }else{
                 outofrange.style.display = "none";
                 if (snowValue < 10) {
@@ -417,6 +348,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                     persistent.style.display = "none";
                     precipitation.style.display = "none";
                     windloaded.style.display = "none";
+                    dryloose.style.display = "none";
                 }else{
                     lowsnow.style.display = "none";
                     if (weakLayer && tempValue < 40){
@@ -424,13 +356,15 @@ document.addEventListener("DOMContentLoaded", () =>{
                         precipitation.style.display = "none";
                         windloaded.style.display = "none";
                         wet.style.display = "none";
+                        dryloose.style.display = "none";
                     }else{
                         persistent.style.display = "none";
-                        if (tempValue > 40){
+                        if (tempValue > 35){
                             wet.style.display = "flex";
                             persistent.style.display = "none";
                             precipitation.style.display = "none";
                             windloaded.style.display = "none";
+                            dryloose.style.display = "none";
                         }else{
                             wet.style.display = "none";
                         }
@@ -440,18 +374,24 @@ document.addEventListener("DOMContentLoaded", () =>{
                         precipitation.style.display = "flex";
                         windloaded.style.display = "none";
                         wet.style.display = "none";
+                        dryloose.style.display = "none";
                     }else{
                         precipitation.style.display = "none";
                     }
-                    if (windValue > 30 && tempValue < 40) {
+                    if (windValue > 30 && tempValue < 35) {
                         persistent.style.display = "none";
                         precipitation.style.display = "none";
                         windloaded.style.display = "flex";
                         wet.style.display = "none";
+                        dryloose.style.display = "none";
                     } else {
                         windloaded.style.display = "none";
                     }
 
+                    if (windValue < 30 && tempValue < 40 && !precValue && !weakLayer){
+                        dryloose.style.display = "flex";
+                    }
+                    
                 }
             }
         }

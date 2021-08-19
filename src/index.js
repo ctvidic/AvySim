@@ -27,8 +27,11 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.move = false;
             this.end = false;
             this.moveRoller = false;
-            this.rollerBalls = []
-            // this.createRollerBalls();
+            this.rollerBalls = [];
+            this.positionMatrix = [];
+            this.realSlopeVal = slopeVal;
+            this.resetball = true;
+            this.createRollerBalls();
             this.drawSnow();
         }
 
@@ -53,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             this.snowValue = this.snowSlider.value;
             this.snowVal = Number.parseInt(this.snowValue);
 
-            if (this.move && this.snowCords.topRCornerX < this.canvas.width && slopeVal > 29 && slopeVal < 60){
+            if (this.move && this.snowCords.topRCornerX < this.canvas.width && slopeVal > 29 && slopeVal < 75){
                 this.snowCords.bottomRCornerX += this.xSpeed;
                 this.snowCords.topRCornerX+= this.xSpeed;
                 this.snowCords.topLCornerX+=this.xSpeed;
@@ -70,17 +73,17 @@ document.addEventListener("DOMContentLoaded", () =>{
 
                 if (this.snowCords.topRCornerX > this.canvas.width || this.xSpeed === 0){
                     this.end = true;
-                    // this.moveRoller = true; 
+                    this.moveRoller = true; 
                 }
                 if (this.xSpeed < 1){
-                    //this.moveRoller = true; 
+                    this.moveRoller = true; 
                 }
             } else if (this.move && this.xSpeed===10){
                 this.moveRoller = true;
                 this.end = true;
             }
             //Slope Description
-            if (slopeVal > 70 && slopeVal <= 75) {
+            if (slopeVal > 60 && slopeVal <= 75) {
                 this.snowVal /= 1.5;
             }else if (slopeVal > 75 && slopeVal <= 80) {
                 this.snowVal /= 2;
@@ -88,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 this.snowVal /= 2.5;
             }else if (slopeVal < 30){
             }
-
+            this.realSlopeVal = slopeVal
             let slope = ((2 / 3 * (this.canvas.height)) / (4 / 5 * this.canvas.width - 6 * slopeVal));
             if (!this.move){
             this.ctx.beginPath();
@@ -138,19 +141,28 @@ document.addEventListener("DOMContentLoaded", () =>{
                 let yychange = 0;
                 let sloper = .6;
                 let otherVal = this.snowVal*2
-                if(slopeVal > 29 && slopeVal < 60){
-                    for (let i = 0; i<400;i++){
+                
+                if(slopeVal >= 30 && slopeVal < 75 && this.snowVal > 10){
+                    let numba = 0;
+                    if (slopeVal < 75){
+                        numba = 400;
+                    }else{
+                        numba = 50;
+                    }
+                    for (let i = 0; i<numba;i++){
                         val += 1+ychange;
                         if (this.snowCords.topLCornerY + val * slope + ychange < (this.canvas.height-this.snowVal * 3)){
                             this.ctx.lineTo(this.snowCords.topLCornerX + i, this.snowCords.topLCornerY + val * slope + ychange);
+                            this.positionMatrix.push(this.snowCords.topLCornerX + i, this.snowCords.topLCornerY + val * slope + ychange)
                             if (i % 10 === 0){
                                     yychange = -.015;
                             }else{
                                     yychange = .0015;
                             }
                             ychange += yychange;   
-                        }else{
+                        } else if (this.snowCords.topLCornerX + i < this.snowCords.topRCornerX-10){
                             this.ctx.lineTo(this.snowCords.topLCornerX + i, this.canvas.height - this.snowVal-otherVal);
+                            this.positionMatrix.push(this.snowCords.topLCornerX + i, this.snowCords.topLCornerY + val * slope + ychange)
                             if (otherVal > 1){
                                 otherVal -= sloper;
                                 if (sloper > .15){
@@ -161,16 +173,31 @@ document.addEventListener("DOMContentLoaded", () =>{
                             }else{
                                 otherVal = 1;
                             }
+                            
                         }
                         
                     }
                 }
+                
+                for (let i = 0; i< 300;i++){
+                        this.positionMatrix.push(500+i, this.canvas.height - (this.snowVal*2))
+                }
+                for (let i = 0; i <200; i++) {
+                    this.positionMatrix.push(800 + i, this.canvas.height - (this.snowVal * 1))
+                }
                 // this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - this.snowVal - this.snowCords.round);
+                if (this.snowVal>10){
                 this.ctx.lineTo(this.snowCords.topRCornerX, this.canvas.height - this.snowVal);
                 this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
                 this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height);
+                
                 // this.ctx.lineTo(this.snowCords.bottomRCornerX, this.canvas.height);
                 this.ctx.lineTo(this.snowCords.bottomLCornerX, this.snowCords.bottomLCornerY);
+                }else{
+                    this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height - this.snowVal*2)
+                    this.ctx.lineTo(-6 * slopeVal + this.canvas.width, this.canvas.height)
+
+                }
                 this.ctx.lineTo(this.canvas.width / 5, peak);
                 // this.ctx.lineTo(this.snowCords.topLCornerX - 3, this.snowCords.topLCornerY - 3 * slope);
                 // this.ctx.lineTo(this.snowCords.topLCornerX - 2, this.snowCords.topLCornerY - 2*slope);
@@ -180,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 this.ctx.fill();
                 this.ctx.stroke();
             }
-            if (slopeVal > 29 && slopeVal < 60){
+            if (slopeVal > 29 && slopeVal < 75){
                 if (this.snowCords.round < 5){
                         this.snowCords.round+=.3
                 }else if (this.snowCords.round< 20){
@@ -200,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
 
         moveRollerBalls(){
-            if (this.moveRoller){
+            if (this.moveRoller && (this.realSlopeVal >= 30 && this.realSlopeVal < 75) && this.snowVal>10){
                 for(let i=0;i<this.rollerBalls.length;i++){
                     let roller = this.rollerBalls[i];
                     this.ctx.beginPath();
@@ -212,102 +239,76 @@ document.addEventListener("DOMContentLoaded", () =>{
                         roller.angle,
                         false
                     )
-                    // this.ctx.stroke();
+                    this.ctx.fillStyle = 'white'
+                    this.ctx.stroke();
                     this.ctx.fill();
+                    roller.xexp += .03;
+                    roller.x += roller.xexp
+                    // if (roller.x > this.canvas.width){
+                    //     // this.rollerBalls.pop()
+                    // }
+                    let booli = this.positionMatrix.indexOf(Math.floor(roller.x))
+                    let booly = 0
+                    if (booli > 0){
+                        booly = this.positionMatrix[booli+1]
+                    }
+                    
+                    if (roller.y < (booly+3) && roller.bouncey === true || roller.gravity <= 0){
+                        roller.y += roller.gravity;
+                        roller.gravity += .1;
+                        roller.bouncey = true;
+                    }else if (roller.y > (booly + 3)|| roller.bouncey === false){
+                        roller.bouncey = false;
+                        roller.y -= roller.gravity;
+                        roller.gravity -= 1.5;
+                        roller.x += 2
+                    }
 
-                    roller.x += 1
+
+                   
+                
+                }
+                
+                if (this.rollerBalls.length < 30 && this.resetball) {
+                    this.createRollerBalls();
+                }
+                if (this.rollerBalls.length > 0){
+                if (this.rollerBalls[0].x > this.canvas.width){
+                    this.resetRollerBalls();
+                    this.resetball = false;
                 }
             }
+            }
+           
             
             
         }
 
         createRollerBalls(){
-
-            for(let i = 0; i<100;i++){
+            for(let i = 0; i<2;i++){
                 this.rollerBalls.push({
-                    x: this.canvas.width / 5 + 5,
-                    y: this.canvas.height / 3,
-                    r: 10,
+                    x: this.canvas.width / 5 + Math.random()*60,
+                    y: this.canvas.height / 3 - 20 + Math.random()*20,
+                    r: 4,
                     start: 0,
                     angle: 2 * Math.PI,
+                    bounce: true,
+                    bouncey: true,
+                    gravity: 1,
+                    xexp: 2
                 })
 
             }
         }
+
+        resetRollerBalls(){
+            for(let i=0;i<this.rollerBalls.length;i++){
+                this.rollerBalls.pop();
+            }
+        }
     }
 
-    // class DisplayWind{
-    //     constructor(snowVal){
-    //         this.canvas = document.getElementById("display-canvas")
-    //         this.ctx = this.canvas.getContext('2d');
-    //         this.snowVal = snowVal;
-    //         this.windArray = [];
-    //         this.x=0;
-    //         this.y=0
-    //         this.rotation = 0;
-    //         this.gravity=0;
-    //         this.changeValue = 0;
-    //         this.sizeChange = 1;
-    //     }
-
-    //     drawWind(snowvalue,tempValue){
-    //         this.snowVal = snowvalue
-    //         let windSlider = document.getElementById("windspeed");
-    //         this.windValue = Number.parseInt(windSlider.value);
-       
-    //         //old four lines
-
-
-    //         // if (this.windValue > 0){
-    //         //     let y = Math.random() * 4-7
-    //         //     this.ctx.moveTo(0, 50);
-    //         //     this.ctx.lineTo(150 + this.windValue / 2, 50 + y * this.windValue / 20);
-    //         //     this.ctx.moveTo(0, 100);
-    //         //     this.ctx.lineTo(100 + this.windValue / 2, 100+y*this.windValue/20);
-    //         //     this.ctx.moveTo(0, 150);
-    //         //     this.ctx.lineTo(50+this.windValue/1.5, 150+y*this.windValue/20);
-    //         //     this.ctx.moveTo(0, 200);
-    //         //     this.ctx.lineTo(this.windValue, 200+y*this.windValue/20);
-    //         //     this.ctx.stroke();
-    //         // }
-
-    //         for (let i=0;i<this.windArray.length;i++){
-    //             let val  = this.windArray[i]
-    //             // this.ctx.moveTo(val.x1,val.y1);
-    //             this.ctx.beginPath()
-    //             this.ctx.arc (
-    //                 val.x1,
-    //                 val.y1,
-    //                 val.r,
-    //                 val.start,
-    //                 val.angle,
-    //                 false
-    //                 )
-    //             this.ctx.stroke();
-    //             val.x1 += 5 * Math.random()*this.windValue/40;
-    //             val.y1 -= 3 * Math.random() - val.gravity;
-    //             val.r -= .01
-    //             val.start += .1 * Math.PI
-    //             val.angle += .1 * Math.PI
-    //             val.gravity += .02
-    //         }
-    //         if (this.windValue > 25 && this.windArray.length < 100 && tempValue < 35){
-    //                 this.windArray.push({
-    //                     x1: this.canvas.width / 5 + Math.random()*10 -15,
-    //                     y1: this.canvas.height / 3 - this.snowVal + Math.random()*10,
-    //                     r: 5,
-    //                     start: .5 * Math.PI,
-    //                     angle: 1 * Math.PI,
-    //                     gravity: 0
-    //                 })
-    //             }
-    //         else {
-    //             this.windArray.shift()
-    //         }
-
-    //     }
-// }
+  
 
     class TextBox{
         constructor(){
@@ -330,13 +331,14 @@ document.addEventListener("DOMContentLoaded", () =>{
             let weakLayer = weakValue.checked;
             let precValue = document.getElementById("prec-true").checked;
 
-            if (slopeValue < 30 || slopeValue > 60){
+            if (slopeValue < 30 || slopeValue >= 75){
                 outofrange.style.display = "flex";
                 lowsnow.style.display = "none";
                 wet.style.display = "none";
                 persistent.style.display = "none";
                 precipitation.style.display = "none";
                 windloaded.style.display = "none";
+                dryloose.style.display = "none";
             }else{
                 outofrange.style.display = "none";
                 if (snowValue < 10) {
@@ -346,6 +348,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                     persistent.style.display = "none";
                     precipitation.style.display = "none";
                     windloaded.style.display = "none";
+                    dryloose.style.display = "none";
                 }else{
                     lowsnow.style.display = "none";
                     if (weakLayer && tempValue < 40){
@@ -353,13 +356,15 @@ document.addEventListener("DOMContentLoaded", () =>{
                         precipitation.style.display = "none";
                         windloaded.style.display = "none";
                         wet.style.display = "none";
+                        dryloose.style.display = "none";
                     }else{
                         persistent.style.display = "none";
-                        if (tempValue > 40){
+                        if (tempValue > 35){
                             wet.style.display = "flex";
                             persistent.style.display = "none";
                             precipitation.style.display = "none";
                             windloaded.style.display = "none";
+                            dryloose.style.display = "none";
                         }else{
                             wet.style.display = "none";
                         }
@@ -369,18 +374,24 @@ document.addEventListener("DOMContentLoaded", () =>{
                         precipitation.style.display = "flex";
                         windloaded.style.display = "none";
                         wet.style.display = "none";
+                        dryloose.style.display = "none";
                     }else{
                         precipitation.style.display = "none";
                     }
-                    if (windValue > 30 && tempValue < 40) {
+                    if (windValue > 30 && tempValue < 35) {
                         persistent.style.display = "none";
                         precipitation.style.display = "none";
                         windloaded.style.display = "flex";
                         wet.style.display = "none";
+                        dryloose.style.display = "none";
                     } else {
                         windloaded.style.display = "none";
                     }
 
+                    if (windValue < 30 && tempValue < 40 && !precValue && !weakLayer){
+                        dryloose.style.display = "flex";
+                    }
+                    
                 }
             }
         }
@@ -435,6 +446,7 @@ document.addEventListener("DOMContentLoaded", () =>{
     const reset = document.getElementById("reset");
     reset.onclick = function(){
         let resetCanvas = new DisplayCanvas;
+
         resetCanvas.animate();
     }
 

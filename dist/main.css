@@ -30,7 +30,7 @@ h1 {
 #main-board {
   display: flex;
   justify-content: flex-start;
-  background-image: linear-gradient(#acdef1, LightCyan);
+  background-image: linear-gradient(#c5e8f3, #7e97b3);
 }
 
 #weatherbackdrop {
@@ -38,7 +38,7 @@ h1 {
   visibility: hidden;
   z-index: 0;
   display: flex;
-  background-image: linear-gradient(#3e4041, LightCyan);
+  background-image: linear-gradient(#364241, LightCyan);
 }
 
 #snow-canvas {
@@ -153,6 +153,16 @@ h1 {
 }
 
 #windloadedtext {
+  vertical-align: middle;
+}
+
+#dryloose {
+  display: none;
+  font-family: "Play", sans-serif;
+  margin-left: 10px;
+}
+
+#dryloosetext {
   vertical-align: middle;
 }
 

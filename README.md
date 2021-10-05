@@ -79,7 +79,50 @@ This project will be implemented with the following technologies
 	• Webpack and Babel to bundle and transpile the source Javascript code
 
 	• npm to manage project dependencies
-
+	
+**Code Example**
+From a creative standpoint, creating a wind effect seemed like very difficult challenge working with only Canvas and Javascript. I was able to accomplish this effect with the following code: 
+```javascript
+drawWind(snowvalue, tempValue) {
+        this.snowVal = snowvalue
+        let windSlider = document.getElementById("windspeed");
+        this.windValue = Number.parseInt(windSlider.value);
+        for (let i = 0; i < this.windArray.length; i++) {
+            let val = this.windArray[i]
+            this.ctx.beginPath()
+            this.ctx.arc(
+                val.x1,
+                val.y1,
+                val.r,
+                val.start,
+                val.angle,
+                false
+            )
+            this.ctx.strokeStyle = "white";
+            this.ctx.stroke();
+            val.x1 += 5 * Math.random() * this.windValue / 40;
+            val.y1 -= 3 * Math.random() - val.gravity;
+            val.r -= .01
+            val.start += .1 * Math.PI
+            val.angle += .1 * Math.PI
+            val.gravity += .02
+        }
+        if (this.windValue > 25 && this.windArray.length < 100 && tempValue < 35) {
+            this.windArray.push({
+                x1: this.canvas.width / 5 + Math.random() * 10 - 15,
+                y1: this.canvas.height / 3 - this.snowVal + Math.random() * 10,
+                r: 9,
+                start: .5 * Math.PI,
+                angle: 1 * Math.PI,
+                gravity: 0
+            })
+        }
+        else {
+            this.windArray.shift()
+        }
+    }
+ ```
+This code snippet works by consistently generating new wind 'arc' elements. Arcs are canvas form of a circle and by only representing a portion of the circle we can 'rotate' the arc over time by rendering different portions of the circle over time. Combine this with a slightly randomized x-value that is dependent on the wind value, a slightly radomized value that accelerates over time from gravity, and an array limit allowing old arc elements to be destroyed, we get an accurate and visually pleasing wind effect coming off the summit of the mountain.  
 
 **Implementation Timeline**
 

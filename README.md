@@ -1,6 +1,7 @@
 # [AvySim](https://ctvidic.github.io/AvySim/)
 
 
+<div align="center"><img width="700" alt="Screen Shot 2021-10-05 at 9 30 55 AM" src="https://user-images.githubusercontent.com/80602202/136033227-d205c650-0ccd-4bac-862b-92dda32a5f22.png"></div>
 
 
 **Background**:
@@ -80,7 +81,8 @@ This project will be implemented with the following technologies
 
 	• npm to manage project dependencies
 	
-**Code Example**
+****Code Example****
+
 From a creative standpoint, creating a wind effect seemed like very difficult challenge working with only Canvas and Javascript. I was able to accomplish this effect with the following code: 
 ```javascript
 drawWind(snowvalue, tempValue) {

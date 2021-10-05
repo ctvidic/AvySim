@@ -124,7 +124,7 @@ drawWind(snowvalue, tempValue) {
         }
     }
  ```
-This code snippet works by consistently generating new wind 'arc' elements. Arcs are canvas form of a circle and by only representing a portion of the circle we can 'rotate' the arc over time by rendering different portions of the circle over time. Combine this with a slightly randomized x-value that is dependent on the wind value, a slightly radomized value that accelerates over time from gravity, and an array limit allowing old arc elements to be destroyed, we get an accurate and visually pleasing wind effect coming off the summit of the mountain.  
+This code snippet works by consistently generating new wind 'arc' elements. Arcs are canvas's form of a circle and by only representing a portion of the circle we can 'rotate' the arc over time by rendering different portions of the circle over time. Combine this with a slightly randomized x-value that is dependent on the wind value, a slightly radomized value that accelerates over time from gravity, and an array limit allowing old arc elements to be destroyed, we get an accurate and visually pleasing wind effect coming off the summit of the mountain.  
 
 **Implementation Timeline**
 
